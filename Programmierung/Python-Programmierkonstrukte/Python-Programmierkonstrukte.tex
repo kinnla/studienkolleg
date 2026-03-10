@@ -96,7 +96,7 @@ Variablen sind Speicherplätze für Werte in einem Computerprogramm. In Python w
 
 Bei der \textbf{Initialisierung} wird einer Variable zum ersten Mal ein Wert zugewiesen. Vorher kann sie nicht verwendet werden -- andernfalls tritt ein \textbf{\texttt{NameError}} auf.
 
-Das Zeichen \textbf{\texttt{=}} ist der \textbf{Zuweisungsoperator}. Er weist der Variable auf der linken Seite den Wert auf der rechten Seite zu. Der Zuweisungsoperator ist nicht zu verwechseln mit dem \textbf{Vergleichsoperator} \textbf{\texttt{==}}, der zwei Werte vergleicht und einen booleschen Wert (\texttt{True} oder \texttt{False}) zurückgibt.
+Das Zeichen \textbf{\texttt{=}} ist der \textbf{Zuweisungsoperator}. Er weist der Variable auf der linken Seite den Wert auf der rechten Seite zu. Der Zuweisungsoperator ist nicht zu verwechseln mit dem \textbf{Vergleichsoperator} \textbf{\texttt{==}}, der zwei Werte vergleicht und einen booleschen Wert (\textbf{\texttt{True}} oder \textbf{\texttt{False}}) zurückgibt.
 
 Variablennamen können Buchstaben, Zahlen und Unterstriche enthalten, müssen aber mit einem Buchstaben oder Unterstrich beginnen. Groß- und Kleinschreibung wird unterschieden (z.B. \textbf{\texttt{x}} und \textbf{\texttt{X}} sind unterschiedliche Variablen). Schlüsselwörter wie \textbf{\texttt{if}}, \textbf{\texttt{for}}, \textbf{\texttt{while}} können nicht als Variablennamen verwendet werden.
 
@@ -139,7 +139,7 @@ Typ von x: <class 'str'>
 \section{Ein- und Ausgabe (Input/Output)}
 Ein- und Ausgabe ermöglichen die Kommunikation zwischen dem Programm und der Benutzerin über das Terminal. Den \textbf{\texttt{print()}}-Befehl haben Sie bereits kennengelernt. In diesem Code-Beispiel wird ein sogenannter \textbf{\texttt{F-String}} ausgegeben. Diesen erkennt man an dem \textbf{f} vor den Anführungszeichen (,,f`` steht für ,,Format``). Das erlaubt es, in einen Text dynamische Inhalte z.B. aus Variablen einzusetzen. Die Variable wird hierbei in geschweifte Klammern geschrieben, und in dem String dann zur Laufzeit mit dem Wert der Variablen ersetzt.
 
-Der Befehl \textbf{\texttt{input()}} hält das Programm an und wartet, bis die Benutzerin eine Eingabe macht und mit \textbf{Enter} bestätigt. Die Eingabe wird immer als \textbf{String} zurückgegeben. Wenn Ihr Programm einen Zahlenwert benötigt, können Sie die Eingabe mit \texttt{int()} oder \texttt{float()} in den geeigneten Datentypen umwandeln. (Bei der Umwandlung kann es zu einem Fehler kommen, z.B. bei der Eingabe \texttt{'acht'}. 
+Der Befehl \textbf{\texttt{input()}} hält das Programm an und wartet, bis die Benutzerin eine Eingabe macht und mit \textbf{Enter} bestätigt. Die Eingabe wird immer als \textbf{String} zurückgegeben. Wenn Ihr Programm einen Zahlenwert benötigt, können Sie die Eingabe mit \textbf{\texttt{int()}} oder \textbf{\texttt{float()}} in den geeigneten Datentypen umwandeln. Bei der Umwandlung kann es zu einem Fehler kommen, z.B. bei der Eingabe \textbf{\texttt{'acht'}}.
 
 \begin{lstlisting}[caption=eingabe.py]
 # Eingabe von der Konsole
@@ -165,14 +165,14 @@ Hallo, Anna! Schön, Sie kennenzulernen.
 
 Eine \textbf{Verzweigung} ermöglicht die Ausführung eines Codeblocks basierend auf einer \textbf{Bedingung}. Ein \textbf{Codeblock} ist dabei eine Gruppe von zusammengehörigen Anweisungen, die als eine Einheit betrachtet und ausgeführt werden. Diese Strukturen sind fundamental für die Programmlogik und erlauben es, Entscheidungen in Code zu implementieren.
 
-Bedingungen werden als \textbf{boolesche Ausdrücke} formuliert. Ein boolescher Ausdruck hat den Wert \texttt{True} oder \texttt{False} und wird häufig mit Vergleichsoperatorn (\texttt{>}, \texttt{>=}, \texttt{!=} etc.) und booleschen Operatoren (\texttt{and}, \texttt{or}, \texttt{not}) erzeugt.
+Bedingungen werden als \textbf{boolesche Ausdrücke} formuliert. Ein boolescher Ausdruck hat den Wert \textbf{\texttt{True}} oder \textbf{\texttt{False}} und wird häufig mit Vergleichsoperatorn (\textbf{\texttt{>}}, \textbf{\texttt{>=}}, \textbf{\texttt{!=}} etc.) und booleschen Operatoren (\textbf{\texttt{and}}, \textbf{\texttt{or}}, \textbf{\texttt{not}}) erzeugt.
 
-\textbf{Wichtig:} Der Vergleichsoperator \texttt{==} prüft auf Gleichheit. Er ist nicht zu verwechseln mit dem Zuweisungsoperator \texttt{=}, der einer Variable einen Wert zuweist.
+\textbf{Wichtig:} Der Vergleichsoperator \textbf{\texttt{==}} prüft auf Gleichheit. Er ist nicht zu verwechseln mit dem Zuweisungsoperator \textbf{\texttt{=}}, der einer Variable einen Wert zuweist.
 
 
 Python verwendet die \textbf{Einrückung} um Codeblöcke zu definieren. Ein Block beginnt, wenn die Einrückung erhöht wird, üblicherweise nach einem Doppelpunkt (\textbf{\texttt{:}}), und endet, wenn die Einrückung wieder reduziert wird. Die Standard-Einrückung beträgt 4 Leerzeichen. Konsistente Einrückung ist essentiell, da Einrückungsfehler zu einem \textbf{\texttt{IndentationError}} führen und das Programm nicht ausgeführt werden kann.
 
-In Python werden Verzweigungen hauptsächlich mit \textbf{\texttt{if}}-Anweisungen realisiert. \textbf{\texttt{if}} prüft eine Bedingung und führt einen Codeblock aus, wenn die Bedingung wahr ist. \textbf{\texttt{elif}} steht für ``else if'' und prüft weitere Bedingungen, nachdem eine vorherige if- oder elif-Bedingung nicht erfüllt wurde. \textbf{\texttt{else}} wird ausgeführt, wenn keine der vorherigen Bedingungen erfüllt wurde. Der \texttt{else}-Zweig ist optional -- eine \texttt{if}-Anweisung kann auch ohne \texttt{else} stehen. if-Anweisungen können innerhalb anderer if-Anweisungen platziert werden (Verschachtelung).
+In Python werden Verzweigungen hauptsächlich mit \textbf{\texttt{if}}-Anweisungen realisiert. \textbf{\texttt{if}} prüft eine Bedingung und führt einen Codeblock aus, wenn die Bedingung wahr ist. \textbf{\texttt{elif}} steht für ``else if'' und prüft weitere Bedingungen, nachdem eine vorherige if- oder elif-Bedingung nicht erfüllt wurde. \textbf{\texttt{else}} wird ausgeführt, wenn keine der vorherigen Bedingungen erfüllt wurde. Der \textbf{\texttt{else}}-Zweig ist optional -- eine \textbf{\texttt{if}}-Anweisung kann auch ohne \textbf{\texttt{else}} stehen. if-Anweisungen können innerhalb anderer if-Anweisungen platziert werden (Verschachtelung).
 
 \begin{lstlisting}[caption=verzweigungen.py]
 # Beispiel: if ohne else
@@ -313,9 +313,9 @@ Countdown von 5:\\
 Start!
 \end{tcolorbox}
 
-\subsection{Endlosschleifen mit \texttt{while True}}
+\subsection{Endlosschleifen mit \textbf{\texttt{while True}}}
 
-Eine besondere Form der While-Schleife ist die \textbf{Endlosschleife} mit \texttt{while True}. Da die Bedingung \texttt{True} immer wahr ist, läuft die Schleife endlos -- es sei denn, sie wird mit \texttt{break} von innen beendet. Dieses Muster wird oft verwendet, wenn die Abbruchbedingung erst im Schleifenkörper geprüft werden kann.
+Eine besondere Form der While-Schleife ist die \textbf{Endlosschleife} mit \textbf{\texttt{while True}}. Da die Bedingung \textbf{\texttt{True}} immer wahr ist, läuft die Schleife endlos -- es sei denn, sie wird mit \textbf{\texttt{break}} von innen beendet. Dieses Muster wird oft verwendet, wenn die Abbruchbedingung erst im Schleifenkörper geprüft werden kann.
 
 \begin{lstlisting}[caption=endlosschleife.py]
 # Endlosschleife mit break
@@ -393,7 +393,7 @@ Zinseszins: 7039.988712124658 Euro
 
 Module sind Dateien mit Python-Code, die Funktionen, Klassen und Variablen enthalten. Sie ermöglichen die Wiederverwendung von Code und die Organisation in logische Einheiten. Module helfen dabei, komplexe Programme zu strukturieren und verhindern, dass der gesamte Code in einer einzigen Datei steht.
 
-Python stellt von Anfang an viele \textbf{Built-in Functions}\footnote{Dokumentation der Built-in Functions: \url{https://docs.python.org/3/library/functions.html}} zur Verfügung, die ohne Import verwendet werden können. Beispiele sind \textbf{\texttt{print()}}, \textbf{\texttt{input()}}, \texttt{int()}, \texttt{float()} und \texttt{str()} zum Konvertieren von Datentypen sowie \texttt{type()} zur Typabfrage.
+Python stellt von Anfang an viele \textbf{Built-in Functions}\footnote{Dokumentation der Built-in Functions: \url{https://docs.python.org/3/library/functions.html}} zur Verfügung, die ohne Import verwendet werden können. Beispiele sind \textbf{\texttt{print()}}, \textbf{\texttt{input()}}, \textbf{\texttt{int()}}, \textbf{\texttt{float()}} und \textbf{\texttt{str()}} zum Konvertieren von Datentypen sowie \textbf{\texttt{type()}} zur Typabfrage.
 
 Für speziellere Aufgaben bietet Python zusätzliche Funktionen, die thematisch als \textbf{Module} organisiert sind. Diese müssen vor der Nutzung importiert werden. Die mathematischen Module\footnote{Dokumentation der mathematischen Module: \url{https://docs.python.org/3/library/numeric.html}} enthalten beispielsweise erweiterte Funktionen für Berechnungen und Zufallszahlen.
 
@@ -508,7 +508,7 @@ Traceback (most recent call last):
               ~~^~~
 ZeroDivisionError: division by zero\end{tcblisting}
 
-\noindent Das Programm startet erfolgreich und gibt ,,Berechnung beginnt...`` aus, stürzt dann aber bei der Division durch Null ab. Der \textbf{Stacktrace} zeigt: In Zeile 5 ist ein \texttt{ZeroDivisionError} aufgetreten. Lesen Sie den Stacktrace \textbf{von unten nach oben} -- die letzte Zeile nennt den Fehlertyp und die Beschreibung, die Zeilen darüber zeigen die Stelle im Code.
+\noindent Das Programm startet erfolgreich und gibt ,,Berechnung beginnt...`` aus, stürzt dann aber bei der Division durch Null ab. Der \textbf{Stacktrace} zeigt: In Zeile 5 ist ein \textbf{\texttt{ZeroDivisionError}} aufgetreten. Lesen Sie den Stacktrace \textbf{von unten nach oben} -- die letzte Zeile nennt den Fehlertyp und die Beschreibung, die Zeilen darüber zeigen die Stelle im Code.
 
 \subsection{Logische Fehler (Logic Errors)}
 
@@ -531,7 +531,7 @@ if note == 1 and note == 2:    # FEHLER: note kann nicht gleichzeitig 1 und 2 se
 # Richtig wäre: if note == 1 or note == 2:
 \end{lstlisting}
 
-\noindent \textbf{Strategie:} Bei logischen Fehlern hilft \textbf{Print-Debugging}: Fügen Sie \texttt{print()}-Anweisungen ein, um den Wert von Variablen an verschiedenen Stellen im Programm zu überprüfen. So können Sie nachvollziehen, wo das Programm sich anders verhält als erwartet.
+\noindent \textbf{Strategie:} Bei logischen Fehlern hilft \textbf{Print-Debugging}: Fügen Sie \textbf{\texttt{print()}}-Anweisungen ein, um den Wert von Variablen an verschiedenen Stellen im Programm zu überprüfen. So können Sie nachvollziehen, wo das Programm sich anders verhält als erwartet.
 
 % Fehlerbehandlung
 \section{Fehlerbehandlung (Exception Handling)}
