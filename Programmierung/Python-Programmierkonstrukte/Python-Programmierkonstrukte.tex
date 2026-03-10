@@ -1,0 +1,639 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage{fontspec}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper, total={16cm, 25cm}]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{listings}
+\usepackage[normalem]{ulem} % für \sout{Durchstreichen}
+\usepackage{soul}            % für \hl{Gelb markieren}
+\usepackage{xcolor}
+\sethlcolor{yellow}
+\tcbuselibrary{listings}
+
+% Neue Umgebungen für Revisionsmarkierung
+\newtcolorbox{geloescht}{colback=red!10, boxrule=0.5pt, colframe=red!50, left=2mm, right=2mm, top=1mm, bottom=1mm}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{gray},
+    breaklines=true,
+    frame=single,
+    framesep=1mm,
+    framextopmargin=1mm,
+    framexbottommargin=1mm,
+    showspaces=false,
+    showstringspaces=false
+}
+
+% Dynamisches Datum: aktueller Monat (deutsch) + aktuelles Jahr
+\newcommand{\AktuellerMonat}{%
+  \ifcase\month\or
+    Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or
+    Juli\or August\or September\or Oktober\or November\or Dezember%
+  \fi
+}
+\newcommand{\AktuellerMonatJahr}{\AktuellerMonat\ \number\year}
+\begin{document}
+\hrule
+\begin{center}
+{\large\bf Python: Grundlegende Programmierkonstrukte}\\[-0mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+Informatik \hfill \AktuellerMonatJahr\\[2mm]
+\end{center}
+\hrule
+\par\bigskip
+\noindent \textbf{Programmierkonstrukte} sind die grundlegenden Bausteine einer \textbf{Programmiersprache}, die verwendet werden, um Anweisungen für den Computer zu erstellen. Sie definieren die Struktur und den Ablauf eines Programms. Die \textbf{Syntax} einer Programmiersprache legt fest, wie diese Konstrukte geschrieben werden müssen, damit der Computer sie verstehen kann -- ähnlich wie die Grammatik in einer natürlichen Sprache. Python verwendet eine lesbare Syntax, die auf Einrückung und Doppelpunkte anstatt auf Klammern oder Semikolons setzt.
+
+\textbf{Schlüsselwörter} sind reservierte Wörter, die in der Sprache eine besondere Bedeutung haben und nicht als Variablennamen verwendet werden können. Python hat etwa 35 Schlüsselwörter, darunter \textbf{\texttt{if}}, \textbf{\texttt{for}}, \textbf{\texttt{while}}, \textbf{\texttt{def}}, \textbf{\texttt{import}}, \textbf{\texttt{try}} und \textbf{\texttt{except}}. Diese Schlüsselwörter bilden das Fundament der Sprache und werden verwendet, um die verschiedenen Programmierkonstrukte zu definieren.
+
+% Hallo Welt
+\section{Hallo Welt!}
+
+Das erste Programm in jeder Programmiersprache ist das ``Hallo-Welt''-Programm. Mit diesem Programm begrüßt das Programm die Welt, bzw. alle, die auf dem Bildschirm schauen.
+
+\textbf{Bildschirmaufteilung:} Beim Programmieren ist es hilfreich, den Bildschirm zu teilen: auf der linken Seite den Texteditor mit dem Quellcode, auf der rechten Seite das Terminal zur Ausführung des Programms.
+
+%\medskip
+%[Screenshot: Typische Bildschirmaufteilung -- links Texteditor, rechts Terminal]
+
+Öffnen Sie einen Texteditor Ihrer Wahl (z.B. \textbf{\texttt{vim}} oder \textbf{\texttt{mousepad}}), geben Sie den folgenden zwei Codezeilen ein:
+
+\begin{lstlisting}[caption=hallo.py]
+# Mein erstes Python-Programm
+print("Hallo, Welt!")
+\end{lstlisting}
+
+\noindent Die erste Code-Zeile ist eigentlich kein Code, sondern ein Kommentar. Sie beginnt mit dem Symbol \textbf{\texttt{\#}} und wird daher von Python ignoriert. Kommentare machen Programmcode für Menschen lesbarer. Die zweite Zeile gibt Text auf dem Bildschirm aus und verwendet dafür den \textbf{\texttt{print}} Befehl.
+
+Speichern Sie die Datei mit dem Namen \textbf{\texttt{hallo.py}}. Öffnen Sie ein Terminal und navigieren Sie zu dem Verzeichnis, in dem Sie die Datei gespeichert haben. Führen Sie dann das Programm mit folgendem Befehl aus:
+
+\begin{tcolorbox}[colback=gray!15, fontupper=\ttfamily, boxrule=0.5pt,
+    left=3mm, right=3mm, top=2mm, bottom=2mm]
+\$ python hallo.py\\
+Hallo, Welt!
+\end{tcolorbox}
+
+\noindent Das Skript wird dann vom Python-\textbf{Interpreter} Zeile für Zeile eingelesen und ausgeführt.
+
+\textbf{Tipp:} Mit \textbf{\texttt{Strg+C}} können Sie ein laufendes Programm im Terminal jederzeit abbrechen. Das ist besonders nützlich, wenn ein Programm in einer Endlosschleife hängt oder auf eine Eingabe wartet, die Sie nicht machen möchten.
+
+% Variablen
+\section{Variablen}
+
+Variablen sind Speicherplätze für Werte in einem Computerprogramm. In Python werden Variablen dynamisch typisiert, das heißt, der Datentyp wird automatisch erkannt und kann sich während der Laufzeit ändern.
+
+Bei der \textbf{Initialisierung} wird einer Variable zum ersten Mal ein Wert zugewiesen. Vorher kann sie nicht verwendet werden -- andernfalls tritt ein \textbf{\texttt{NameError}} auf.
+
+Das Zeichen \textbf{\texttt{=}} ist der \textbf{Zuweisungsoperator}. Er weist der Variable auf der linken Seite den Wert auf der rechten Seite zu. Der Zuweisungsoperator ist nicht zu verwechseln mit dem \textbf{Vergleichsoperator} \textbf{\texttt{==}}, der zwei Werte vergleicht und einen booleschen Wert (\texttt{True} oder \texttt{False}) zurückgibt.
+
+Variablennamen können Buchstaben, Zahlen und Unterstriche enthalten, müssen aber mit einem Buchstaben oder Unterstrich beginnen. Groß- und Kleinschreibung wird unterschieden (z.B. \textbf{\texttt{x}} und \textbf{\texttt{X}} sind unterschiedliche Variablen). Schlüsselwörter wie \textbf{\texttt{if}}, \textbf{\texttt{for}}, \textbf{\texttt{while}} können nicht als Variablennamen verwendet werden.
+
+\begin{lstlisting}[caption=variablen.py]
+# Zuweisung von Variablen
+x = 5              # Eine Integer-Variable
+name = "Python"    # Eine String-Variable
+is_valid = True    # Eine Boolean-Variable
+
+# Ausgabe der Variablen
+print("x =", x)
+print("name =", name)
+print("is_valid =", is_valid)
+
+# Typen können sich ändern
+print("In x ist eine Zahl gespeichert: ", x)
+print("Typ von x:", type(x))
+x = "Morgenstunde"         # Hier ändert sich der Typ von x von Integer zu String
+print("In x ist text gespeichert: ", x)
+print("Typ von x:", type(x))
+\end{lstlisting}
+
+Nach dem Speichern führen Sie das Programm aus:
+
+\begin{tcolorbox}[colback=gray!15, fontupper=\ttfamily, boxrule=0.5pt,
+    left=3mm, right=3mm, top=2mm, bottom=2mm]
+\$ python variablen.py\\
+x = 5\\
+name = Python\\
+is\_valid = True\\
+In x ist eine Zahl gespeichert:  5\\
+Typ von x: <class 'int'>\\
+In x ist text gespeichert:  Morgenstunde\\
+Typ von x: <class 'str'>
+\end{tcolorbox}
+
+\noindent Das Programm zeigt, wie Variablen verschiedene Datentypen speichern können und wie sich der Typ einer Variable während der Laufzeit ändern kann.
+
+% Ein- und Ausgabe
+\section{Ein- und Ausgabe (Input/Output)}
+Ein- und Ausgabe ermöglichen die Kommunikation zwischen dem Programm und der Benutzerin über das Terminal. Den \textbf{\texttt{print()}}-Befehl haben Sie bereits kennengelernt. In diesem Code-Beispiel wird ein sogenannter \textbf{\texttt{F-String}} ausgegeben. Diesen erkennt man an dem \textbf{f} vor den Anführungszeichen (,,f`` steht für ,,Format``). Das erlaubt es, in einen Text dynamische Inhalte z.B. aus Variablen einzusetzen. Die Variable wird hierbei in geschweifte Klammern geschrieben, und in dem String dann zur Laufzeit mit dem Wert der Variablen ersetzt.
+
+Der Befehl \textbf{\texttt{input()}} hält das Programm an und wartet, bis die Benutzerin eine Eingabe macht und mit \textbf{Enter} bestätigt. Die Eingabe wird immer als \textbf{String} zurückgegeben. Wenn Ihr Programm einen Zahlenwert benötigt, können Sie die Eingabe mit \texttt{int()} oder \texttt{float()} in den geeigneten Datentypen umwandeln. (Bei der Umwandlung kann es zu einem Fehler kommen, z.B. bei der Eingabe \texttt{'acht'}. 
+
+\begin{lstlisting}[caption=eingabe.py]
+# Eingabe von der Konsole
+name = input("Wie heißen Sie? ")  # Fragt nach dem Namen
+
+# Ausgabe mit F-String-Formatierung
+print(f"Hallo, {name}! Schön, Sie kennenzulernen.")
+\end{lstlisting}
+
+Nach dem Speichern führen Sie das Programm aus. Geben Sie Ihren Namen ein, wenn Sie danach gefragt werden:
+
+\begin{tcolorbox}[colback=gray!15, fontupper=\ttfamily, boxrule=0.5pt,
+    left=3mm, right=3mm, top=2mm, bottom=2mm]
+\$ python eingabe.py\\
+Wie heißen Sie? Anna\\
+Hallo, Anna! Schön, Sie kennenzulernen.
+\end{tcolorbox}
+
+\noindent Das Programm fragt nach dem Namen der Benutzerin und begrüßt sie persönlich mit einem formatierten Text.
+
+% Verzweigungen
+\section{Verzweigungen}
+
+Eine \textbf{Verzweigung} ermöglicht die Ausführung eines Codeblocks basierend auf einer \textbf{Bedingung}. Ein \textbf{Codeblock} ist dabei eine Gruppe von zusammengehörigen Anweisungen, die als eine Einheit betrachtet und ausgeführt werden. Diese Strukturen sind fundamental für die Programmlogik und erlauben es, Entscheidungen in Code zu implementieren.
+
+Bedingungen werden als \textbf{boolesche Ausdrücke} formuliert. Ein boolescher Ausdruck hat den Wert \texttt{True} oder \texttt{False} und wird häufig mit Vergleichsoperatorn (\texttt{>}, \texttt{>=}, \texttt{!=} etc.) und booleschen Operatoren (\texttt{and}, \texttt{or}, \texttt{not}) erzeugt.
+
+\textbf{Wichtig:} Der Vergleichsoperator \texttt{==} prüft auf Gleichheit. Er ist nicht zu verwechseln mit dem Zuweisungsoperator \texttt{=}, der einer Variable einen Wert zuweist.
+
+
+Python verwendet die \textbf{Einrückung} um Codeblöcke zu definieren. Ein Block beginnt, wenn die Einrückung erhöht wird, üblicherweise nach einem Doppelpunkt (\textbf{\texttt{:}}), und endet, wenn die Einrückung wieder reduziert wird. Die Standard-Einrückung beträgt 4 Leerzeichen. Konsistente Einrückung ist essentiell, da Einrückungsfehler zu einem \textbf{\texttt{IndentationError}} führen und das Programm nicht ausgeführt werden kann.
+
+In Python werden Verzweigungen hauptsächlich mit \textbf{\texttt{if}}-Anweisungen realisiert. \textbf{\texttt{if}} prüft eine Bedingung und führt einen Codeblock aus, wenn die Bedingung wahr ist. \textbf{\texttt{elif}} steht für ``else if'' und prüft weitere Bedingungen, nachdem eine vorherige if- oder elif-Bedingung nicht erfüllt wurde. \textbf{\texttt{else}} wird ausgeführt, wenn keine der vorherigen Bedingungen erfüllt wurde. Der \texttt{else}-Zweig ist optional -- eine \texttt{if}-Anweisung kann auch ohne \texttt{else} stehen. if-Anweisungen können innerhalb anderer if-Anweisungen platziert werden (Verschachtelung).
+
+\begin{lstlisting}[caption=verzweigungen.py]
+# Beispiel: if ohne else
+alter = int(input("Wie alt sind Sie? "))
+if alter >= 18:
+    print("Sie sind volljährig.")
+# Das Programm läuft hier immer weiter, egal ob die Bedingung
+# wahr oder falsch war.
+print("Danke für Ihre Eingabe!")
+
+# Wetterbedingte Kleidungsempfehlung
+temperatur = int(input("Wie viele Grad sind es? "))
+regen = input("Regnet es? (ja/nein): ")
+
+# Kleidung basierend auf Temperatur
+if temperatur >= 30:
+    print("Badekleidung")
+elif temperatur >= 20:
+    print("Leichte Kleidung")
+elif temperatur >= 0:
+    print("Warme Kleidung")
+else:
+    print("Mütze, Handschuhe, Schal und Halsbonbons")
+
+# Regenschutz - verschachtelte if-Anweisungen
+if regen == "ja":
+    wind = input("Ist es windig? (ja/nein): ")
+    if wind == "ja":
+        print("Regenjacke mit Kapuze (wegen Wind)")
+    else:
+        print("Regenschirm reicht")
+\end{lstlisting}
+
+\noindent Nach dem Speichern führen Sie das Programm aus und geben Sie die gewünschten Werte ein:
+
+\begin{tcolorbox}[colback=gray!15, fontupper=\ttfamily, boxrule=0.5pt,
+    left=3mm, right=3mm, top=2mm, bottom=2mm]
+\$ python verzweigungen.py\\
+Wie alt sind Sie? 20\\
+Sie sind volljährig.\\
+Danke für Ihre Eingabe!\\
+Wie viele Grad sind es? 5\\
+Regnet es? (ja/nein): ja\\
+Ist es windig? (ja/nein): nein\\
+Warme Kleidung\\
+Regenschirm reicht
+\end{tcolorbox}
+
+% Schleifen
+\section{Schleifen}
+Schleifen ermöglichen die wiederholte Ausführung von Codeblöcken und sind entscheidend für die effiziente Verarbeitung von Daten. Python bietet zwei Haupttypen von Schleifen. Der \textbf{Schleifenkopf} ist der erste Teil der Schleife, der die Bedingung oder Sequenz definiert und mit einem Doppelpunkt endet. Der nachfolgende eingerückte Code-Block bildet den \textbf{Schleifenkörper}, der bei jeder \textbf{Iteration} (Durchlauf) ausgeführt wird.
+
+\subsection{For-Schleifen}
+
+\textbf{For-Schleifen} werden verwendet, um über eine Sequenz (wie Listen, Tuples, Strings, etc.) zu iterieren oder eine bestimmte Anzahl von Malen zu wiederholen. Sie werden typischerweise mit dem \textbf{\texttt{range()}}-Objekt für numerische Sequenzen verwendet.
+
+\textbf{Kontrollstatements} für Schleifen ermöglichen eine präzise Steuerung des Programmflusses. Mit \textbf{\texttt{break}} wird die Schleife vorzeitig beendet und \textbf{\texttt{continue}} überspringt den Rest des Schleifenkörpers.
+
+\begin{lstlisting}[caption=for\_schleifen.py]
+# For-Schleife mit Liste
+colors = ["rot", "grün", "blau"]
+print("Farben:")
+for color in colors:
+    print("Aktuelle Farbe:", color)
+
+# For-Schleife mit break
+print("\nZählen bis 5:")
+for i in range(10):
+    if i == 5:
+        print("Stopp bei", i)
+        break
+    print("Zahl:", i)
+
+# For-Schleife mit continue
+print("\nGerade Zahlen überspringen:")
+for i in [23, 4, 2, 3, 8]:
+    if i % 2 == 0:
+        continue
+    print("Ungerade Zahl:", i)
+\end{lstlisting}
+
+\begin{tcolorbox}[colback=gray!15, fontupper=\ttfamily, boxrule=0.5pt,
+    left=3mm, right=3mm, top=2mm, bottom=2mm]
+\$ python for\_schleifen.py\\
+Farben:\\
+Aktuelle Farbe: rot\\
+Aktuelle Farbe: grün\\
+Aktuelle Farbe: blau\\
+\\
+Zählen bis 5:\\
+Zahl: 0\\
+Zahl: 1\\
+Zahl: 2\\
+Zahl: 3\\
+Zahl: 4\\
+Stopp bei 5\\
+\\
+Gerade Zahlen überspringen:\\
+Ungerade Zahl: 23\\
+Ungerade Zahl: 3
+\end{tcolorbox}
+
+\subsection{While-Schleifen}
+
+\textbf{While-Schleifen} führen einen Codeblock aus, solange eine bestimmte Bedingung wahr ist. Es ist wichtig, die Bedingung im Schleifenkörper irgendwann zu ändern, um zu verhindern, dass die Schleife unendlich läuft.
+
+\begin{lstlisting}[caption=while\_schleifen.py]
+# While-Schleife: Ganzzahlige Wurzel berechnen
+zahl = int(input("Geben Sie eine natürliche Zahl ein: "))
+print(f"Ganzzahlige Wurzel von {zahl} berechnen:")
+wurzel = 1
+while wurzel * wurzel <= zahl:
+    wurzel = wurzel + 1
+print(f"Die ganzzahlige Wurzel von {zahl} ist {wurzel - 1}")
+
+# While-Schleife: Countdown
+n = 5
+print(f"\nCountdown von {n}:")
+while n > 0:
+    print(n)
+    n = n - 1
+print("Start!")
+\end{lstlisting}
+
+\begin{tcolorbox}[colback=gray!15, fontupper=\ttfamily, boxrule=0.5pt,
+    left=3mm, right=3mm, top=2mm, bottom=2mm]
+\$ python while\_schleifen.py\\
+Geben Sie eine natürliche Zahl ein: 108\\
+Ganzzahlige Wurzel von 108 berechnen:\\
+Die ganzzahlige Wurzel von 108 ist 10\\
+\\
+Countdown von 5:\\
+5\\
+4\\
+3\\
+2\\
+1\\
+Start!
+\end{tcolorbox}
+
+\subsection{Endlosschleifen mit \texttt{while True}}
+
+Eine besondere Form der While-Schleife ist die \textbf{Endlosschleife} mit \texttt{while True}. Da die Bedingung \texttt{True} immer wahr ist, läuft die Schleife endlos -- es sei denn, sie wird mit \texttt{break} von innen beendet. Dieses Muster wird oft verwendet, wenn die Abbruchbedingung erst im Schleifenkörper geprüft werden kann.
+
+\begin{lstlisting}[caption=endlosschleife.py]
+# Endlosschleife mit break
+print("Geben Sie 'q' ein, um das Programm zu beenden.")
+while True:
+    eingabe = input("Ihre Eingabe: ")
+    if eingabe == "q":
+        print("Auf Wiedersehen!")
+        break
+    print(f"Sie haben '{eingabe}' eingegeben.")
+\end{lstlisting}
+
+\begin{tcolorbox}[colback=gray!15, fontupper=\ttfamily, boxrule=0.5pt,
+    left=3mm, right=3mm, top=2mm, bottom=2mm]
+\$ python endlosschleife.py\\
+Geben Sie 'q' ein, um das Programm zu beenden.\\
+Ihre Eingabe: hallo\\
+Sie haben 'hallo' eingegeben.\\
+Ihre Eingabe: test\\
+Sie haben 'test' eingegeben.\\
+Ihre Eingabe: q\\
+Auf Wiedersehen!
+\end{tcolorbox}
+
+%\textbf{Tipp:} Falls ein Programm in einer ungewollten Endlosschleife hängt, können Sie es mit \textbf{\texttt{Strg+C}} (Ctrl+C) im Terminal abbrechen.
+
+% Funktionen
+\section{Funktionen}
+
+Funktionen sind wiederverwendbare Codeblöcke, die eine bestimmte Aufgabe ausführen. Sie helfen, Code zu organisieren, Wiederholungen zu vermeiden und die Wartbarkeit zu verbessern. Funktionen werden mit dem Schlüsselwort \textbf{\texttt{def}} definiert, gefolgt vom Funktionsnamen und Parametern in Klammern. \textbf{Parameter} (parameters) sind Eingabewerte, die an die Funktion übergeben werden und innerhalb der Funktion wie Variablen verwendet werden können.
+
+Mit dem Schlüsselwort \textbf{\texttt{return}} kann eine Funktion einen \textbf{Rückgabewert} (return value) liefern -- dies ist das Ergebnis, das die Funktion nach ihrer Ausführung zurücksendet. Ohne \textbf{\texttt{return}} gibt die Funktion \textbf{\texttt{None}} zurück, einen speziellen Wert, der das Nichts symbolisiert. Parameter können Standardwerte haben, die verwendet werden, wenn beim Aufruf kein Wert angegeben wird.
+
+Beim Aufruf von Funktionen gibt es zwei Arten von Argumenten: \textbf{Positional Arguments} werden in derselben Reihenfolge übergeben, wie die Parameter definiert wurden. \textbf{Keyword Arguments} werden mit dem Parameternamen explizit zugewiesen und können in beliebiger Reihenfolge stehen.
+\begin{lstlisting}[caption=funktionen.py]
+# Zinsrechnung mit optionalem Zinseszins
+def kapitalanlage(kapital, zinssatz, jahre, zinseszins=False):
+    if zinseszins:
+        # Kapital mit Zinseszinsen
+        return kapital * (1 + zinssatz/100) ** jahre
+    else:
+        # Kapital mit Zinsen
+        return kapital + (kapital * zinssatz/100 * jahre)
+
+# Eingabe der Parameter
+kapital = float(input("Kapital in Euro: "))
+zinssatz = float(input("Zinssatz in Prozent: "))
+jahre = int(input("Anlagedauer in Jahren: "))
+
+# Positional Arguments (in Reihenfolge der Parameter)
+einfach = kapitalanlage(kapital, zinssatz, jahre)
+print(f"Einfache Zinsen: {einfach} Euro")
+
+# Keyword Arguments (mit Parameternamen)
+zinseszins_betrag = kapitalanlage(kapital=kapital, zinssatz=zinssatz, jahre=jahre, zinseszins=True)
+print(f"Zinseszins: {zinseszins_betrag} Euro")
+\end{lstlisting}
+
+\noindent Nach dem Speichern führen Sie das Programm aus:
+
+\begin{tcolorbox}[colback=gray!15, fontupper=\ttfamily, boxrule=0.5pt,
+    left=3mm, right=3mm, top=2mm, bottom=2mm]
+\$ python funktionen.py\\
+Kapital in Euro: 1000\\
+Zinssatz in Prozent: 5\\
+Anlagedauer in Jahren: 40\\
+Einfache Zinsen: 3000.0 Euro\\
+Zinseszins: 7039.988712124658 Euro
+\end{tcolorbox}
+
+\noindent Das Beispiel zeigt den deutlichen Unterschied zwischen einfachen Zinsen und Zinseszins über 40 Jahre.
+
+% Module importieren
+\section{Module importieren}
+
+Module sind Dateien mit Python-Code, die Funktionen, Klassen und Variablen enthalten. Sie ermöglichen die Wiederverwendung von Code und die Organisation in logische Einheiten. Module helfen dabei, komplexe Programme zu strukturieren und verhindern, dass der gesamte Code in einer einzigen Datei steht.
+
+Python stellt von Anfang an viele \textbf{Built-in Functions}\footnote{Dokumentation der Built-in Functions: \url{https://docs.python.org/3/library/functions.html}} zur Verfügung, die ohne Import verwendet werden können. Beispiele sind \textbf{\texttt{print()}}, \textbf{\texttt{input()}}, \texttt{int()}, \texttt{float()} und \texttt{str()} zum Konvertieren von Datentypen sowie \texttt{type()} zur Typabfrage.
+
+Für speziellere Aufgaben bietet Python zusätzliche Funktionen, die thematisch als \textbf{Module} organisiert sind. Diese müssen vor der Nutzung importiert werden. Die mathematischen Module\footnote{Dokumentation der mathematischen Module: \url{https://docs.python.org/3/library/numeric.html}} enthalten beispielsweise erweiterte Funktionen für Berechnungen und Zufallszahlen.
+
+Es gibt zwei Arten, Module zu importieren: Mit \textbf{\texttt{import modul}} wird ein ganzes Modul importiert. Auf die Inhalte greift man mit der \textbf{Punkt-Notation} zu: \textbf{\texttt{modul.funktion()}}. Mit \textbf{\texttt{from modul import element}} werden nur bestimmte Elemente importiert, die dann direkt verwendet werden können.
+
+\begin{lstlisting}[caption=module.py]
+# Importieren eines ganzen Moduls
+import math
+
+# Verwendung von Modulfunktionen über die Punkt-Notation
+wurzel = math.sqrt(108)
+print(f"Quadratwurzel von 108: {wurzel}")
+print(f"Pi-Wert: {math.pi}")
+print(f"Sinus von 90 Grad: {math.sin(math.radians(90))}")
+
+# Importieren spezifischer Funktionen
+from random import randint
+
+# Direkter Zugriff auf importierte Funktion ohne Modulpräfix
+zufallszahl = randint(1, 10)
+print(f"Zufallszahl zwischen 1 und 10: {zufallszahl}")
+\end{lstlisting}
+
+\noindent Nach dem Speichern führen Sie das Programm aus:
+
+\begin{tcolorbox}[colback=gray!15, fontupper=\ttfamily, boxrule=0.5pt,
+    left=3mm, right=3mm, top=2mm, bottom=2mm]
+\$ python module.py\\
+Quadratwurzel von 108: 10.392304845413264\\
+Pi-Wert: 3.141592653589793\\
+Sinus von 90 Grad: 1.0\\
+Zufallszahl zwischen 1 und 10: 7
+\end{tcolorbox}
+
+\noindent Das Programm nutzt Funktionen aus dem Mathematik-Modul \textbf{\texttt{math}} und dem Modul \textbf{\texttt{random}} für Zufallszahlen.
+
+% Debugging
+\section{Debugging}
+
+\textbf{Debugging} bezeichnet das systematische Suchen und Beheben von Fehlern in einem Programm. Um Fehler effektiv zu beheben, muss man zunächst verstehen, welche Art von Fehler vorliegt. Wir unterscheiden drei Kategorien von Fehlern.
+
+\subsection{Syntaxfehler}
+
+\textbf{Syntaxfehler} entstehen, wenn der Code nicht den Regeln der Programmiersprache entspricht. Das Programm kann in diesem Fall \textbf{gar nicht gestartet} werden -- der Interpreter erkennt den Fehler bereits beim Einlesen des Codes.
+
+\begin{lstlisting}[caption=fehler\_syntax.py]
+# Beispiel für einen Syntaxfehler
+print("Hallo Welt"  # Fehlende schließende Klammer
+\end{lstlisting}
+
+\noindent Beim Versuch, das Programm auszuführen:
+
+\begin{tcblisting}{
+    colback=gray!15,
+    boxrule=0.5pt,
+    left=3mm, right=3mm, top=0mm, bottom=0mm,
+    listing only,
+    listing options={
+        language={},
+        basicstyle=\ttfamily,
+        columns=fullflexible,
+        frame=none, 
+        breaklines=true
+    }
+}
+$ python fehler_syntax.py
+  File "fehler_syntax.py", line 2
+    print (" Hallo Welt " # Fehlende schließende Klammer
+           ^
+SyntaxError: '(' was never closed
+\end{tcblisting}
+
+\noindent Python erkennt den Syntaxfehler bereits vor der Ausführung und zeigt die fehlerhafte Zeile an. Auch der Grund, warum der Parser das Programm nicht akzeptiert, wird angegeben. Um den Fehler zu lösen, schauen Sie sich die angegebene Stelle im Code an. Oft ist es nur ein Tippfehler.
+
+Ein spezieller Syntaxfehler ist der \textbf{IndentationError}. Hier sind einzelne Codezeilen nicht oder falsch eingerückt, obwohl es nach der Block-Syntax erforderlich wäre.
+
+\subsection{Laufzeitfehler (Runtime Errors)}
+
+\textbf{Laufzeitfehler} (Runtime Errors) treten während der Programmausführung auf. Das Programm startet normal, stürzt aber bei bestimmten Operationen ab. Typische Ursachen sind Division durch Null, nicht initialisierte Variablen oder falsche Datentypen.
+
+Wenn ein Laufzeitfehler auftritt, gibt Python einen \textbf{Stacktrace} aus. Der Stacktrace zeigt den Weg, den das Programm bis zum Fehler genommen hat. 
+
+\begin{lstlisting}[caption=fehler\_runtime.py]
+# Beispiel für einen Laufzeitfehler
+a = 10
+b = 0
+print("Berechnung beginnt...")
+result = a / b  # Division durch Null
+print(f"Ergebnis: {result}")
+\end{lstlisting}
+
+\noindent Beim Ausführen des Programms:
+
+\begin{tcblisting}{
+    colback=gray!15,
+    boxrule=0.5pt,
+    left=3mm, right=3mm, top=0mm, bottom=0mm,
+    listing only,
+    listing options={
+        language={},
+        basicstyle=\ttfamily,
+        columns=fullflexible,
+        frame=none, 
+        breaklines=true
+    }
+}
+$ python fehler_runtime.py
+ Berechnung beginnt ...
+Traceback (most recent call last):
+  File "fehler_runtime.py", line 5, in <module>
+    result = a / b # Division durch Null
+              ~~^~~
+ZeroDivisionError: division by zero\end{tcblisting}
+
+\noindent Das Programm startet erfolgreich und gibt ,,Berechnung beginnt...`` aus, stürzt dann aber bei der Division durch Null ab. Der \textbf{Stacktrace} zeigt: In Zeile 5 ist ein \texttt{ZeroDivisionError} aufgetreten. Lesen Sie den Stacktrace \textbf{von unten nach oben} -- die letzte Zeile nennt den Fehlertyp und die Beschreibung, die Zeilen darüber zeigen die Stelle im Code.
+
+\subsection{Logische Fehler (Logic Errors)}
+
+\textbf{Logische Fehler} sind die am schwierigsten zu findende Art von Fehlern. Das Programm stürzt zwar nicht ab, aber es macht nicht das, was es soll. Python meldet keinen Fehler, weil der Code syntaktisch und technisch korrekt ist -- nur die Logik stimmt nicht.
+
+\begin{lstlisting}[caption=fehler\_logisch.py]
+# Beispiel für einen logischen Fehler
+# Das Programm soll alle Zahlen von 1 bis 5 ausgeben
+i = 1
+while i <= 5:
+    print(i)
+    # Fehler: i wird nicht erhöht -> Endlosschleife!
+\end{lstlisting}
+
+\begin{lstlisting}[caption=fehler\_logisch2.py]
+# Beispiel: Bedingung wird nie wahr
+note = int(input("Geben Sie Ihre Note ein (1-6): "))
+if note == 1 and note == 2:    # FEHLER: note kann nicht gleichzeitig 1 und 2 sein
+    print("Sehr gut oder gut!")
+# Richtig wäre: if note == 1 or note == 2:
+\end{lstlisting}
+
+\noindent \textbf{Strategie:} Bei logischen Fehlern hilft \textbf{Print-Debugging}: Fügen Sie \texttt{print()}-Anweisungen ein, um den Wert von Variablen an verschiedenen Stellen im Programm zu überprüfen. So können Sie nachvollziehen, wo das Programm sich anders verhält als erwartet.
+
+% Fehlerbehandlung
+\section{Fehlerbehandlung (Exception Handling)}
+
+Die Fehlerbehandlung ermöglicht es, auf Laufzeitfehler zu reagieren und diese elegant zu behandeln, ohne dass das Programm abstürzt.
+
+Python verwendet einen \textbf{\texttt{try}}-\textbf{\texttt{except}}-Mechanismus für die Fehlerbehandlung. Der \textbf{\texttt{try}}-Block enthält den Code, der potenziell Fehler verursachen könnte. Der \textbf{\texttt{except}}-Block wird ausgeführt, wenn im try-Block ein Fehler auftritt.
+
+\begin{lstlisting}[caption=fehlerbehandlung.py]
+# Sichere Division mit Fehlerbehandlung
+try:
+    a = float(input("Erste Zahl: "))
+    b = float(input("Zweite Zahl: "))
+    result = a / b
+    print(f"Ergebnis: {a} / {b} = {result}")
+except ValueError:
+    print("Fehler: Bitte geben Sie gültige Zahlen ein")
+except ZeroDivisionError:
+    print("Fehler: Division durch Null ist nicht möglich")
+\end{lstlisting}
+
+\noindent Nach dem Speichern führen Sie das Programm aus und testen verschiedene Eingaben:
+
+\begin{tcolorbox}[colback=gray!15, fontupper=\ttfamily, boxrule=0.5pt,
+    left=3mm, right=3mm, top=2mm, bottom=2mm]
+\$ python fehlerbehandlung.py\\
+Erste Zahl: 10\\
+Zweite Zahl: 3\\
+Ergebnis: 10.0 / 3.0 = 3.3333333333333335\\
+\\
+\$ python fehlerbehandlung.py\\
+Erste Zahl: 10\\
+Zweite Zahl: 0\\
+Fehler: Division durch Null ist nicht möglich\\
+\\
+\$ python fehlerbehandlung.py\\
+Erste Zahl: abc\\
+Fehler: Bitte geben Sie gültige Zahlen ein
+\end{tcolorbox}
+
+\noindent Das Programm behandelt verschiedene Fehlertypen elegant und stürzt nicht ab, sondern gibt hilfreiche Fehlermeldungen aus.
+
+
+% Zusammenfassung
+\section{Zusammenfassung}
+
+Die folgende Tabelle fasst die wichtigsten \textbf{Schlüsselwörter} von Python zusammen, die in diesem Dokument vorgestellt wurden:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Schlüsselwörter} & \textbf{Bedeutung} & \textbf{Abschnitt} \\
+\hline
+\texttt{True}, \texttt{False}, \texttt{None} & Spezielle Werte & 2, 4, 6\\
+\texttt{and}, \texttt{or}, \texttt{not} & Logische Operatoren & 4 \\
+\texttt{if}, \texttt{elif}, \texttt{else} & Verzweigungen & 4 \\
+\texttt{for}, \texttt{while} & Schleifen & 5 \\
+\texttt{break}, \texttt{continue} & Schleifensteuerung & 5 \\
+\texttt{def}, \texttt{return} & Funktionen definieren & 6 \\
+\texttt{import}, \texttt{from} & Module importieren & 7 \\
+\texttt{try}, \texttt{except} & Fehlerbehandlung & 9 \\
+\hline
+\end{tabular}
+\end{center}
+
+\bigskip
+Die folgende Tabelle fasst die wichtigsten \textbf{Zeichen und Symbole} zusammen:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Zeichen} & \textbf{Bedeutung} & \textbf{Beispiel} \\
+\hline
+\texttt{=} & Zuweisung & \texttt{x = 5} \\
+\texttt{==} & Vergleich (gleich) & \texttt{if x == 5:} \\
+\texttt{!=} & Vergleich (ungleich) & \texttt{if x != 0:} \\
+\texttt{<}, \texttt{>}, \texttt{<=}, \texttt{>=} & Vergleichsoperatoren & \texttt{if x >= 10:} \\
+\texttt{\#} & Kommentar & \texttt{\# Dies ist ein Kommentar} \\
+\texttt{:} & Beginn eines Codeblocks & \texttt{if x > 0:} \\
+\texttt{()} & Funktionsaufruf / Parameter & \texttt{print("Hallo")} \\
+\texttt{[]} & Listen & \texttt{farben = ['rot', 'blau']} \\
+\texttt{.} & Punkt-Notation (Zugriff) & \texttt{math.sqrt(4)} \\
+\texttt{f''} & F-String (Formatierung) & \texttt{f'x ist \{x\}'} \\
+\hline
+\end{tabular}
+\end{center}
+
+\bigskip
+Die wichtigsten Fehlerarten:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Fehlerart} & \textbf{Erkennung} & \textbf{Strategie} \\
+\hline
+Syntaxfehler & Programm startet nicht & Fehlermeldung + Zeile prüfen \\
+\hline
+Laufzeitfehler & Programm stürzt ab & Stacktrace lesen (von unten) \\
+\hline
+Logische Fehler & Falsches Ergebnis & Print-Debugging \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
