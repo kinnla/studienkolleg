@@ -3,6 +3,7 @@
 \documentclass[ngerman,11pt]{article}
 \usepackage{fontspec}
 \usepackage[ngerman]{babel}
+\usepackage[ngerman]{datetime2}
 \usepackage[a4paper, total={16cm, 25cm}]{geometry}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -36,21 +37,13 @@
     showspaces=false,
     showstringspaces=false
 }
-
-% Dynamisches Datum: aktueller Monat (deutsch) + aktuelles Jahr
-\newcommand{\AktuellerMonat}{%
-  \ifcase\month\or
-    Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or
-    Juli\or August\or September\or Oktober\or November\or Dezember%
-  \fi
-}
-\newcommand{\AktuellerMonatJahr}{\AktuellerMonat\ \number\year}
+\date{\DTMgermanmonthname{\month} \the\year}
 \begin{document}
 \hrule
 \begin{center}
 {\large\bf Python: Grundlegende Programmierkonstrukte}\\[-0mm]
 Studienkolleg der TU Berlin\hfill Till Zoppke\\
-Informatik \hfill \AktuellerMonatJahr\\[2mm]
+\makeatletter Informatik \hfill \@date\\[2mm] \makeatother
 \end{center}
 \hrule
 \par\bigskip
