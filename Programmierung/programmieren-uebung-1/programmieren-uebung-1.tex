@@ -1,0 +1,125 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage{fontspec}
+\usepackage[ngerman]{babel}
+\usepackage[ngerman]{datetime2}
+\usepackage[a4paper, total={16cm, 25cm}]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{listings}
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    commentstyle=\color{black},
+    breaklines=true,
+    frame=single,
+    framesep=1mm,
+    framextopmargin=1mm,
+    framexbottommargin=1mm,
+    showspaces=false,
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny\color{gray}
+}
+\date{\DTMgermanmonthname{\month} \the\year}
+
+\begin{document}
+\hrule
+\begin{center}
+{\large\bf Python: Programmierkonstrukte - Übungsblatt 1}\\[-0mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+Informatik \hfill \DTMgermanmonthname{\month} \the\year\\[2mm]
+\end{center}
+\hrule
+\par\bigskip
+
+\section*{Aufgabe 1: Code-Analyse}
+
+Erklären Sie, was das folgende Programm macht. Beschreiben Sie dabei:
+\begin{itemize}[leftmargin=*]
+\item Was wird eingegeben?
+\item Welche Berechnungen werden durchgeführt?
+\item Was wird ausgegeben?
+\item Geben Sie ein konkretes Beispiel mit Eingabe und Ausgabe an.
+\end{itemize}
+
+\begin{lstlisting}
+name = input("Wie heißen Sie? ")
+alter = int(input("Wie alt sind Sie? "))
+
+if alter >= 18:
+    status = "volljährig"
+    jahre_bis_rente = 67 - alter
+else:
+    status = "minderjährig"
+    jahre_bis_volljaehrigkeit = 18 - alter
+
+print(f"Hallo {name}!")
+print(f"Sie sind {status}.")
+
+if alter >= 18:
+    if jahre_bis_rente > 0:
+        print(f"Bis zur Rente sind es noch {jahre_bis_rente} Jahre.")
+    else:
+        print("Sie sind bereits im Rentenalter oder erreichen es bald.")
+else:
+    print(f"In {jahre_bis_volljaehrigkeit} Jahren werden Sie volljährig.")
+\end{lstlisting}
+
+\section*{Aufgabe 2: Programmlogik}
+Was gibt dieses Programm aus, wenn x = 5 eingegeben wird? Erklären Sie das Verhalten:
+
+\begin{lstlisting}
+x = int(input("Geben Sie eine Zahl ein: "))
+if x > 0:
+    print("Positiv")
+if x > 10:
+    print("Groß")
+else:
+    print("Klein oder gleich 10")
+\end{lstlisting}
+
+\section*{Aufgabe 3: Fehlersuche}
+
+Der folgende Code soll das Alter einer Person berechnen. Finden Sie alle Fehler und korrigieren Sie diese:
+
+\begin{lstlisting}
+geburtsjahr = input("In welchem Jahr wurden Sie geboren? )
+aktuelles_jahr = 2024
+alter = geburts_jahr - aktuelles_jahr
+print(f"Sie sind alter Jahre alt.")
+\end{lstlisting}
+
+\section*{Aufgabe 4: Quotienten berechnen}
+Vervollständigen Sie das Programm, das zwei Zahlen von der Tastatur einliest und ihren Quotienten ausgibt. Ersetzen Sie dazu die \ldots~durch geeigneten Programmcode.
+
+\begin{lstlisting}
+# Eingabe
+zahl1 = ...
+zahl2 = ...
+
+# Fehlerbehandlung bei Division durch 0
+if ...
+	print ...
+else:
+	# Berechnung und Ausgabe
+	quotient = ...
+	print(f"Quotient: ...
+\end{lstlisting}
+
+\section*{Aufgabe 5: Schaltjahr prüfen}
+Schreiben Sie ein Programm, das prüft, ob ein Jahr ein Schaltjahr ist. Ein Jahr ist genau dann ein Schaltjahr, wenn es durch 4 teilbar ist. Es darf dabei nicht durch 100 teilbar sein. Eine Ausnahme gilt für Jahre, die durch 400 teilbar sind: Diese sind trotzdem Schaltjahre.
+
+Sie können ihr Programm mit diesen Eingaben testen: 1900 (kein Schaltjahr), 2000 (Schaltjahr), 2023 (kein Schaltjahr) und 2024 (Schaltjahr).
+
+
+\end{document}
