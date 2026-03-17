@@ -3,11 +3,15 @@
 \documentclass[ngerman,11pt]{article}
 \usepackage{fontspec}
 \usepackage[ngerman]{babel}
+\usepackage[ngerman]{datetime2}
 \usepackage[a4paper, total={16cm, 25cm}]{geometry}
 \usepackage{amsmath}
 \usepackage{enumitem}
 \usepackage{mdframed}
+\usepackage{microtype}
 \usepackage{xcolor}
+
+\emergencystretch=1em
 
 % Shell-Kommando Format
 \newcommand{\shellcmd}[1]{\textbf{\texttt{\detokenize{#1}}}}
@@ -15,8 +19,8 @@
 \begin{document}
 \begin{center}
 {\large\bf Übungen zu Betriebssystemen}\\[2mm]
-Studienkolleg der TU Berlin\hfill Computer Science\\
-Informatik \hfill September 2025\\[4mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+Informatik \hfill \DTMgermanmonthname{\month} \the\year\\[4mm]
 \end{center}
 \hrule
 \par\bigskip
@@ -44,7 +48,7 @@ Informatik \hfill September 2025\\[4mm]
         \item \shellcmd{ls -a backup}
     \end{enumerate}
     \medskip
-    \item Erläutern Sie das Konzept der Dateiberechtigungen unter Linux/Unix. Nennen Sie die drei Berechtigungstypen und die drei Berechtigungsgruppen. Welche Rechte sollte Anna für die Datei \texttt{file.txt} setzen?
+    \item \textbf{Speicherhierarchie:} Ordnen Sie die folgenden Speicherarten nach Geschwindigkeit (schnellste zuerst): CPU-Register, Cache (L1), RAM, SSD und Cloud-Speicher. Erklären Sie den Zusammenhang zwischen Geschwindigkeit und Kosten.
 \end{enumerate}
 
 \bigskip
@@ -70,7 +74,7 @@ Informatik \hfill September 2025\\[4mm]
         \item \shellcmd{python3 hallo.py}
     \end{enumerate}
     \medskip
-    \item Erklären Sie die verschiedenen Modi in Vim. Beschreiben Sie den Unterschied zwischen Normalmodus, Einfügemodus und Befehlszeilenmodus. Welche Tastenkombination müsste Lea drücken, um eine Datei zu speichern und Vim zu verlassen, und wie würde sie vom Einfügemodus in den Normalmodus wechseln, um diese Befehle ausführen zu können?
+    \item \textbf{Vim:} Erklären Sie die verschiedenen Modi in Vim. Beschreiben Sie den Unterschied zwischen Normalmodus, Einfügemodus und Befehlszeilenmodus. Welche Tastenkombination müsste Lea drücken, um eine Datei zu speichern und Vim zu verlassen, und wie würde sie vom Einfügemodus in den Normalmodus wechseln, um diese Befehle ausführen zu können?
 \end{enumerate}
 
 \end{document}
