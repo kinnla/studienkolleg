@@ -1,0 +1,76 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage{fontspec}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper, total={16cm, 25cm}]{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{xcolor}
+
+% Shell-Kommando Format
+\newcommand{\shellcmd}[1]{\textbf{\texttt{\detokenize{#1}}}}
+
+\begin{document}
+\begin{center}
+{\large\bf Übungen zu Betriebssystemen}\\[2mm]
+Studienkolleg der TU Berlin\hfill Computer Science\\
+Informatik \hfill September 2025\\[4mm]
+\end{center}
+\hrule
+\par\bigskip
+
+\noindent\textbf{Aufgabe 1.} Anna arbeitet an einem wichtigen Projekt. Um ihre Arbeit zu sichern, gibt sie in einer Shell folgende Befehle ein:
+
+\begin{mdframed}[backgroundcolor=black!5, linewidth=1pt]
+\shellcmd{$ pwd}\\
+\texttt{/home/tu-berlin.de/aschmidt77} \\
+\shellcmd{$ mkdir projekt}\\
+\shellcmd{$ cd projekt} \\
+\shellcmd{$ echo "Wichtige Projektdatei" > file.txt} \\
+\shellcmd{$ mkdir bakcup}  \\
+\shellcmd{$ cp file.txt bakcup/}  \\
+\shellcmd{$ mv bakcup backup}  \\
+\shellcmd{$ rm file.txt}  \\
+\shellcmd{$} 
+\end{mdframed}
+
+\begin{enumerate}[label=\alph*)]
+    \item Geben Sie für jedes der folgenden Kommandos an, welche Ausgabe es erzeugen würde, wenn Anna es als nächstes eingibt.
+    \begin{enumerate}[label=\roman*)]
+        \item \shellcmd{whoami}
+        \item \shellcmd{ls}
+        \item \shellcmd{ls -a backup}
+    \end{enumerate}
+    \medskip
+    \item Erläutern Sie das Konzept der Dateiberechtigungen unter Linux/Unix. Nennen Sie die drei Berechtigungstypen und die drei Berechtigungsgruppen. Welche Rechte sollte Anna für die Datei \texttt{file.txt} setzen?
+\end{enumerate}
+
+\bigskip
+
+\noindent\textbf{Aufgabe 2.} Lea arbeitet an einem Python-Projekt und gibt in einer Bash-Shell die folgenden Befehle ein:
+
+\begin{mdframed}[backgroundcolor=black!5, linewidth=1pt]
+\shellcmd{$ pwd}\\
+\texttt{/home/tu-berlin.de/lmeier42} \\
+\shellcmd{$ mkdir pythonprojekt}\\
+\shellcmd{$ cd pythonprojekt} \\
+\shellcmd{$ echo "print('Hallo Welt')" > .neueDatei} \\
+\shellcmd{$ cp .neueDatei hallo.py} \\
+\shellcmd{$ echo "print('Ich lerne Python an der TU Berlin')" > hallo.py} \\
+\shellcmd{$} 
+\end{mdframed}
+
+\begin{enumerate}[label=\alph*)]
+    \item Geben Sie für jedes der folgenden Kommandos an, welche Ausgabe es erzeugen würde, wenn Lea es als nächstes eingibt.
+    \begin{enumerate}[label=\roman*)]
+        \item \shellcmd{ls}
+        \item \shellcmd{cat .neueDatei}
+        \item \shellcmd{python3 hallo.py}
+    \end{enumerate}
+    \medskip
+    \item Erklären Sie die verschiedenen Modi in Vim. Beschreiben Sie den Unterschied zwischen Normalmodus, Einfügemodus und Befehlszeilenmodus. Welche Tastenkombination müsste Lea drücken, um eine Datei zu speichern und Vim zu verlassen, und wie würde sie vom Einfügemodus in den Normalmodus wechseln, um diese Befehle ausführen zu können?
+\end{enumerate}
+
+\end{document}
