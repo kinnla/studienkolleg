@@ -1,0 +1,149 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage{fontspec}
+\usepackage[ngerman]{babel}
+\usepackage[ngerman]{datetime2}
+\usepackage[a4paper, total={16cm, 25cm}]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{listings}
+\usepackage{array}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{gray},
+    breaklines=true,
+    frame=single,
+    framesep=1mm,
+    framextopmargin=1mm,
+    framexbottommargin=1mm,
+    showspaces=false,
+    showstringspaces=false
+}
+
+\lstdefinestyle{inline}{
+    basicstyle=\ttfamily\normalsize,
+    breaklines=false,
+    frame=none
+}
+\date{\DTMgermanmonthname{\month} \the\year}
+
+\begin{document}
+\hrule
+\begin{center}
+{\large\bf Python: Übungsaufgaben zu Datentypen}\\[-0mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+\makeatletter Informatik \hfill \@date\\[2mm] \makeatother
+\end{center}
+\hrule
+
+% Aufgabe 1
+\section*{Aufgabe 1: Fehlerhafte Ausdrücke}
+Erklären Sie für die folgenden Ausdrücke jeweils, warum Python sie nicht auswerten kann und einen Fehler anzeigt.
+
+\lstinline[style=inline]{>>> [1, 2] + (3, 4)}
+
+\vspace{0.7cm}
+
+\lstinline[style=inline]{>>> 7, 0 % 0, 7}
+
+\vspace{0.7cm}
+
+\lstinline[style=inline]{>>> "abcdefg"[7]}
+
+\vspace{0.7cm}
+
+\lstinline[style=inline]{>>> sum(1,2,3)}
+
+\vspace{0.7cm}
+
+\lstinline[style=inline]{>>> "'"'}
+
+\vspace{0.7cm}
+
+\lstinline[style=inline]{>>> 7 % len([])}
+
+\vspace{0.7cm}
+
+% Aufgabe 2
+\section*{Aufgabe 2: Datentypen bestimmen}
+Die folgenden Ausdrücke können von Python ausgewertet werden. Kreuzen Sie jeweils an, welchen Datentyp das Ergebnis der Auswertung hat.
+
+\begin{center}
+\begin{tabular}{|l|>{\centering}p{1.1cm}|>{\centering}p{1.1cm}|>{\centering}p{1.1cm}|>{\centering}p{1.1cm}|>{\centering}p{1.1cm}|>{\centering\arraybackslash}p{1.1cm}|}
+\hline
+\textbf{Ausdruck} & \textbf{int} & \textbf{float} & \textbf{string} & \textbf{bool} & \textbf{list} & \textbf{tuple} \\
+\hline
+\lstinline[style=inline]|7.0 // 2.0| & & & & & & \\[0.3cm]
+\hline
+\lstinline[style=inline]|[7] * 0| & & & & & & \\[0.3cm]
+\hline
+\lstinline[style=inline]|"a > b"| & & & & & & \\[0.3cm]
+\hline
+\lstinline[style=inline]|(1,2)[0:1]| & & & & & & \\[0.3cm]
+\hline
+\lstinline[style=inline]|ord('A')| & & & & & & \\[0.3cm]
+\hline
+\lstinline[style=inline]|sum([not str(7)])| & & & & & & \\[0.3cm]
+\hline
+\lstinline[style=inline]|round(3.5) - 1| & & & & & & \\[0.3cm]
+\hline
+\lstinline[style=inline]|all(':)')| & & & & & & \\[0.3cm]
+\hline
+\lstinline[style=inline]|4 ** 4| & & & & & & \\[0.3cm]
+\hline
+\lstinline[style=inline]|str([1,2,3])[0]| & & & & & & \\[0.3cm]
+\hline
+\lstinline[style=inline]|[]+[False]| & & & & & & \\[0.3cm]
+\hline
+\lstinline[style=inline]|(1,1)*2| & & & & & & \\[0.3cm]
+\hline
+\end{tabular}
+\end{center}
+
+% Aufgabe 3
+\section*{Aufgabe 3: Ausdrücke auswerten}
+Wie werden die folgenden Python-Ausdrücke in der interaktiven Konsole ausgewertet? Schreiben Sie hinter jeden Ausdruck das Ergebnis, das die Python Konsole ausgeben würde.
+
+\begin{lstlisting}
+
+>>> "'"
+
+>>> [3,2][1]
+
+>>> all([7 > 1, 7 % 1])
+
+>>> chr(ord('7'))
+
+>>> 'A' or 'B'
+
+>>> 22 / 22
+
+>>> (max(1, min(2, 3), 4), 5)
+
+>>> int(bool(list([])))
+
+>>> 7 // 3 // -1
+
+>>> [] or [0] and [0,0]
+
+>>> (2,2) != (2) + (2)
+
+>>> round (0.123 ** 1, 1)
+
+>>> [len(tuple('123'))]
+
+\end{lstlisting}
+
+\end{document}
