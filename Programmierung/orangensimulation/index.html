@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orangen Waage Simulation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #game-container {
+            width: 95vw;
+            max-width: 1400px;
+            height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        #title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        #instructions {
+            background: linear-gradient(145deg, #fff3cd, #ffe69c);
+            border: 3px solid #ffc107;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 0 20px 20px 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        #instructions h2 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: #c67c00;
+        }
+
+        #instructions p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        #instructions strong {
+            color: #c67c00;
+        }
+
+        #main-area {
+            flex: 1;
+            display: flex;
+            gap: 20px;
+        }
+
+        #left-storage {
+            flex: 1;
+            background: #f0f0f0;
+            border-radius: 15px;
+            padding: 0 20px 20px 20px;
+            display: flex;
+            flex-wrap: wrap-reverse;
+            gap: 15px;
+            align-content: flex-start;
+            justify-content: flex-start;
+            border: 3px dashed #ccc;
+        }
+
+        #scale-area {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        #scale-structure {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 20px;
+        }
+
+        /* Monkey */
+        #monkey {
+            position: absolute;
+            left: 50%;
+            bottom: -50px;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 200px;
+            z-index: 5;
+            opacity: 0;
+            transition: all 0.8s ease-in-out;
+        }
+
+        #monkey.active {
+            opacity: 1;
+            bottom: 35%;
+        }
+
+        .monkey-body {
+            width: 90px;
+            height: 110px;
+            background: linear-gradient(145deg, #8B4513, #6B3410);
+            border-radius: 45% 45% 50% 50%;
+            position: absolute;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .monkey-belly {
+            width: 60px;
+            height: 70px;
+            background: #D2B48C;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -40%);
+        }
+
+        .monkey-head {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #A0522D, #8B4020);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            bottom: 110px;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .monkey-ear {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(145deg, #A0522D, #8B4020);
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+        }
+
+        .monkey-ear.left {
+            left: -10px;
+        }
+
+        .monkey-ear.right {
+            right: -10px;
+        }
+
+        .monkey-ear-inner {
+            width: 18px;
+            height: 18px;
+            background: #D2B48C;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .monkey-face {
+            width: 55px;
+            height: 45px;
+            background: #E5C9A5;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 55%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .monkey-eye {
+            width: 12px;
+            height: 12px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 8px;
+        }
+
+        .monkey-eye::after {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+        }
+
+        .monkey-eye.left {
+            left: 12px;
+        }
+
+        .monkey-eye.right {
+            right: 12px;
+        }
+
+        .monkey-nose {
+            width: 16px;
+            height: 12px;
+            background: #C9A882;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .monkey-nostril {
+            width: 3px;
+            height: 5px;
+            background: #8B6F47;
+            border-radius: 50%;
+            position: absolute;
+            top: 4px;
+        }
+
+        .monkey-nostril.left {
+            left: 3px;
+        }
+
+        .monkey-nostril.right {
+            right: 3px;
+        }
+
+        .monkey-mouth {
+            width: 25px;
+            height: 12px;
+            border: 3px solid #8B6F47;
+            border-top: none;
+            border-radius: 0 0 60% 60%;
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .monkey-arm {
+            width: 18px;
+            height: 180px;
+            background: linear-gradient(to right, #8B4513, #6B3410);
+            border-radius: 12px;
+            position: absolute;
+            top: 60px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .monkey-arm.left {
+            left: 0px;
+            transform: rotate(-135deg);  /* Nach oben-links zum Balken */
+            transform-origin: top center;
+        }
+
+        .monkey-arm.right {
+            right: 0px;
+            transform: rotate(135deg);  /* Nach oben-rechts zum Balken */
+            transform-origin: top center;
+        }
+
+        .monkey-hand {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(145deg, #A0522D, #8B4020);
+            border-radius: 50%;
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .monkey-leg {
+            width: 22px;
+            height: 45px;
+            background: linear-gradient(to right, #8B4513, #6B3410);
+            border-radius: 12px;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .monkey-leg.left {
+            left: 25px;
+        }
+
+        .monkey-leg.right {
+            right: 25px;
+        }
+
+        .monkey-foot {
+            width: 32px;
+            height: 20px;
+            background: linear-gradient(145deg, #A0522D, #8B4020);
+            border-radius: 50% 50% 40% 40%;
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Speech bubble */
+        #speech-bubble {
+            position: absolute;
+            left: 50%;
+            bottom: 100%;
+            transform: translateX(-50%);
+            background: white;
+            border: 3px solid #333;
+            border-radius: 20px;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+            margin-bottom: 10px;
+        }
+
+        #speech-bubble.show {
+            opacity: 1;
+        }
+
+        #speech-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid white;
+        }
+
+        #speech-bubble::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-top: 18px solid #333;
+            margin-top: 3px;
+        }
+
+        /* Scale beam and structure */
+        #scale-beam {
+            position: absolute;
+            left: 50%;
+            bottom: 240px;  /* Balken ist immer sichtbar */
+            transform: translateX(-50%);
+            width: 600px;
+            height: 15px;
+            background: linear-gradient(to bottom, #888, #555);
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            transition: all 0.8s ease-in-out;
+            transform-origin: center center;
+            z-index: 4;
+            opacity: 1;  /* Immer sichtbar */
+            pointer-events: none;
+        }
+
+        #scale-beam.active {
+            /* Beam is always visible, only lifting animation happens */
+        }
+
+        #scale-beam::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #666, #333);
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        /* Befestigungspunkte am Balken */
+        .beam-attachment {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border: 2px solid #555;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        #left-attachment {
+            left: 125px;  /* Ausgerichtet mit linker Korb-Mitte (300px - 175px) */
+        }
+
+        #right-attachment {
+            right: 125px;  /* Ausgerichtet mit rechter Korb-Mitte */
+        }
+
+        .bucket-container {
+            position: absolute;
+            bottom: 0;
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.8s ease-in-out;
+            z-index: 3;
+        }
+
+        #bucket-a-container {
+            left: calc(50% - 300px);
+        }
+
+        #bucket-b-container {
+            right: calc(50% - 300px);
+        }
+
+        .chain {
+            position: absolute;
+            width: 4px;
+            height: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                #888 0px,
+                #888 8px,
+                #666 8px,
+                #666 10px
+            );
+            border-radius: 2px;
+            transition: all 0.8s ease-in-out;
+            opacity: 0;
+            transform-origin: top center;
+            z-index: 3;
+        }
+
+        .chain.active {
+            opacity: 1;
+        }
+
+        #chain-left {
+            left: calc(50% - 250px);  /* Initiale Position */
+        }
+
+        #chain-right {
+            right: calc(50% - 250px);  /* Initiale Position */
+        }
+
+        .bucket {
+            width: 100%;
+            min-height: 200px;
+            background: linear-gradient(145deg, #d4d4d4, #ffffff);
+            border: 4px solid #666;
+            border-radius: 0 0 20px 20px;
+            border-top: 6px solid #888;
+            display: flex;
+            flex-wrap: wrap-reverse;
+            gap: 8px;
+            padding: 0 15px 15px 15px;
+            align-content: flex-start;
+            justify-content: flex-start;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3), inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .bucket::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -4px;
+            right: -4px;
+            height: 10px;
+            background: linear-gradient(to bottom, #999, #777);
+            border-radius: 5px 5px 0 0;
+        }
+
+        /* Animation states - werden jetzt von JavaScript gesteuert */
+        .bucket-container {
+            /* Positions will be calculated by JavaScript based on chain geometry */
+        }
+
+        #scale-beam.tilt-left {
+            /* Pivot um linken Befestigungspunkt (125px von links) */
+            transform-origin: 125px center;
+            transform: translateX(-50%) rotate(-8deg);
+        }
+
+        #scale-beam.tilt-right {
+            /* Pivot um rechten Befestigungspunkt (125px von rechts = 475px von links) */
+            transform-origin: 475px center;
+            transform: translateX(-50%) rotate(8deg);
+        }
+
+        #right-storage {
+            flex: 1;
+            background: #f0f0f0;
+            border-radius: 15px;
+            padding: 0 20px 20px 20px;
+            display: flex;
+            flex-wrap: wrap-reverse;
+            gap: 15px;
+            align-content: flex-start;
+            justify-content: flex-start;
+            border: 3px dashed #ccc;
+        }
+
+        #weigh-counter {
+            background: white;
+            border: 3px solid #3498db;
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #weigh-counter span {
+            color: #3498db;
+            font-size: 20px;
+        }
+
+        .orange {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 30% 30%, #ffa500, #ff8c00);
+            border-radius: 50%;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.1s;
+            user-select: none;
+            position: relative;
+        }
+
+        .orange:hover {
+            transform: scale(1.05);
+        }
+
+        .orange:active {
+            cursor: grabbing;
+            transform: scale(0.95);
+        }
+
+        .orange.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .orange.heavy.correct {
+            animation: dance 0.6s infinite;
+        }
+
+        .orange.heavy.incorrect {
+            filter: grayscale(50%);
+            animation: shake 0.5s;
+        }
+
+        @keyframes dance {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-15px) rotate(-10deg) scale(1.1);
+            }
+            50% {
+                transform: translateY(0) rotate(0deg) scale(1.15);
+            }
+            75% {
+                transform: translateY(-15px) rotate(10deg) scale(1.1);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: translateX(-5px);
+            }
+            20%, 40%, 60%, 80% {
+                transform: translateX(5px);
+            }
+        }
+
+        .orange.heavy.correct::after {
+            content: '⭐';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        .orange.heavy.incorrect::after {
+            content: '😢';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 24px;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #controls {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+
+        #left-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        #weigh-btn {
+            background: linear-gradient(145deg, #3498db, #2980b9);
+            color: white;
+        }
+
+        #weigh-btn:hover {
+            background: linear-gradient(145deg, #2980b9, #3498db);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+        }
+
+        #result-btn {
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        #result-btn:hover {
+            background: linear-gradient(145deg, #c0392b, #e74c3c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+        }
+
+        #reset-btn {
+            background: linear-gradient(145deg, #95a5a6, #7f8c8d);
+            color: white;
+        }
+
+        #reset-btn:hover {
+            background: linear-gradient(145deg, #7f8c8d, #95a5a6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .bucket.drag-over {
+            background: linear-gradient(145deg, #d0e8ff, #e6f2ff);
+            border-color: #3498db;
+        }
+
+        #left-storage.drag-over,
+        #right-storage.drag-over {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1 id="title">🍊 Finde die schwere Orange 🍊</h1>
+
+        <div id="instructions">
+            <h2>📋 Aufgabe:</h2>
+            <p>🍊 Du hast <strong>9 Orangen</strong>: 8 wiegen genau gleich viel, aber <strong>eine ist schwerer</strong>.</p>
+            <p>⚖️ Finde die schwere Orange und lege sie am Ende <strong>nach rechts</strong>.</p>
+            <p>🎯 Versuche, <strong>möglichst wenig zu wiegen</strong>!</p>
+            <p>📝 Nimm ein Blatt Papier und schreibe auf, wie man das Problem löst. <strong>Achte darauf, eindeutig zu beschreiben</strong>, welche Orangen du in welche Schale legst und was die verschiedenen Ergebnisse bedeuten.</p>
+        </div>
+
+        <div id="main-area">
+            <div id="left-storage"></div>
+
+            <div id="scale-area">
+                <div id="scale-structure">
+                    <div id="scale-beam">
+                        <div class="beam-attachment" id="left-attachment"></div>
+                        <div class="beam-attachment" id="right-attachment"></div>
+                    </div>
+
+                    <!-- Chains are now independent and will be absolutely positioned -->
+                    <div id="chain-left" class="chain"></div>
+                    <div id="chain-right" class="chain"></div>
+
+                    <div id="bucket-a-container" class="bucket-container">
+                        <div id="bucket-a" class="bucket"></div>
+                    </div>
+
+                    <div id="bucket-b-container" class="bucket-container">
+                        <div id="bucket-b" class="bucket"></div>
+                    </div>
+
+                    <div id="monkey">
+                        <div id="speech-bubble"></div>
+                        <div class="monkey-head">
+                            <div class="monkey-ear left">
+                                <div class="monkey-ear-inner"></div>
+                            </div>
+                            <div class="monkey-ear right">
+                                <div class="monkey-ear-inner"></div>
+                            </div>
+                            <div class="monkey-face">
+                                <div class="monkey-eye left"></div>
+                                <div class="monkey-eye right"></div>
+                                <div class="monkey-nose">
+                                    <div class="monkey-nostril left"></div>
+                                    <div class="monkey-nostril right"></div>
+                                </div>
+                                <div class="monkey-mouth"></div>
+                            </div>
+                        </div>
+                        <div class="monkey-body">
+                            <div class="monkey-belly"></div>
+                            <div class="monkey-arm left">
+                                <div class="monkey-hand"></div>
+                            </div>
+                            <div class="monkey-arm right">
+                                <div class="monkey-hand"></div>
+                            </div>
+                            <div class="monkey-leg left">
+                                <div class="monkey-foot"></div>
+                            </div>
+                            <div class="monkey-leg right">
+                                <div class="monkey-foot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="right-storage"></div>
+        </div>
+
+        <div id="controls">
+            <div id="left-controls">
+                <button id="weigh-btn">⚖️ Wiegen</button>
+                <div id="weigh-counter">Gewogen: <span>0</span> mal</div>
+            </div>
+            <button id="result-btn">🎯 Überprüfen</button>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let heavyOrangeId = null;
+        let resultShown = false;
+        let draggedElement = null;
+        let isWeighing = false;
+        let weighCount = 0;
+
+        // Initialize game
+        function initGame() {
+            const leftStorage = document.getElementById('left-storage');
+            leftStorage.innerHTML = '';
+
+            // Clear buckets
+            document.getElementById('bucket-a').innerHTML = '';
+            document.getElementById('bucket-b').innerHTML = '';
+            document.getElementById('right-storage').innerHTML = '';
+
+            // Reset scale animation
+            resetScaleAnimation();
+            resultShown = false;
+            isWeighing = false;
+            weighCount = 0;
+            updateWeighCounter();
+
+            // Randomly select heavy orange (1-9)
+            heavyOrangeId = Math.floor(Math.random() * 9) + 1;
+            console.log('Schwere Orange ist:', heavyOrangeId); // Zum Testen
+
+            // Create 9 oranges
+            for (let i = 1; i <= 9; i++) {
+                const orange = createOrange(i);
+                leftStorage.appendChild(orange);
+            }
+        }
+
+        // Create an orange element
+        function createOrange(id) {
+            const orange = document.createElement('div');
+            orange.className = 'orange';
+            orange.draggable = true;
+            orange.dataset.id = id;
+
+            orange.addEventListener('dragstart', handleDragStart);
+            orange.addEventListener('dragend', handleDragEnd);
+
+            return orange;
+        }
+
+        // Drag and drop handlers
+        function handleDragStart(e) {
+            draggedElement = e.target;
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', e.target.innerHTML);
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+
+            // Remove drag-over class from all drop zones
+            document.querySelectorAll('.drag-over').forEach(el => {
+                el.classList.remove('drag-over');
+            });
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            if (e.target.classList.contains('bucket') ||
+                e.target.id === 'left-storage' ||
+                e.target.id === 'right-storage') {
+                e.target.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            if (e.target.classList.contains('bucket') ||
+                e.target.id === 'left-storage' ||
+                e.target.id === 'right-storage') {
+                e.target.classList.remove('drag-over');
+            }
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            e.preventDefault();
+
+            if (draggedElement) {
+                let dropTarget = e.target;
+
+                // Find the correct drop zone if we dropped on a child element
+                while (dropTarget &&
+                       !dropTarget.classList.contains('bucket') &&
+                       dropTarget.id !== 'left-storage' &&
+                       dropTarget.id !== 'right-storage') {
+                    dropTarget = dropTarget.parentElement;
+                }
+
+                if (dropTarget &&
+                    (dropTarget.classList.contains('bucket') ||
+                     dropTarget.id === 'left-storage' ||
+                     dropTarget.id === 'right-storage')) {
+
+                    // Remove from current parent
+                    draggedElement.parentElement.removeChild(draggedElement);
+
+                    // Add to new parent
+                    dropTarget.appendChild(draggedElement);
+                }
+            }
+
+            return false;
+        }
+
+        // Setup drop zones
+        function setupDropZones() {
+            const dropZones = [
+                document.getElementById('bucket-a'),
+                document.getElementById('bucket-b'),
+                document.getElementById('left-storage'),
+                document.getElementById('right-storage')
+            ];
+
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', handleDragOver);
+                zone.addEventListener('dragenter', handleDragEnter);
+                zone.addEventListener('dragleave', handleDragLeave);
+                zone.addEventListener('drop', handleDrop);
+            });
+        }
+
+        // Reset scale animation
+        function resetScaleAnimation() {
+            const bucketAContainer = document.getElementById('bucket-a-container');
+            const bucketBContainer = document.getElementById('bucket-b-container');
+            const beam = document.getElementById('scale-beam');
+            const monkey = document.getElementById('monkey');
+            const speechBubble = document.getElementById('speech-bubble');
+            const chains = document.querySelectorAll('.chain');
+
+            stopChainAnimation();  // Stop animation loop
+
+            bucketAContainer.classList.remove('lift-up', 'stay-down');
+            bucketBContainer.classList.remove('lift-up', 'stay-down');
+            bucketAContainer.style.transform = '';  // Reset inline transform
+            bucketBContainer.style.transform = '';  // Reset inline transform
+            beam.classList.remove('tilt-left', 'tilt-right', 'active');
+            monkey.classList.remove('active');
+            speechBubble.classList.remove('show');
+            speechBubble.textContent = '';
+            chains.forEach(chain => {
+                chain.classList.remove('active');
+                chain.style.height = '0';  // Reset height
+            });
+        }
+
+        // Update weigh counter
+        function updateWeighCounter() {
+            document.querySelector('#weigh-counter span').textContent = weighCount;
+        }
+
+        // Update chain geometry based on beam position and rotation
+        function updateChainGeometry() {
+            const CHAIN_LENGTH = 88; // Erhöht auf 88px (73px + 15px länger nach oben)
+            const BUCKET_WIDTH = 250; // Breite des Korbs
+
+            const beam = document.getElementById('scale-beam');
+            const leftAttachment = document.getElementById('left-attachment');
+            const rightAttachment = document.getElementById('right-attachment');
+            const chainLeft = document.getElementById('chain-left');
+            const chainRight = document.getElementById('chain-right');
+            const bucketAContainer = document.getElementById('bucket-a-container');
+            const bucketBContainer = document.getElementById('bucket-b-container');
+            const bucketA = document.getElementById('bucket-a');
+            const bucketB = document.getElementById('bucket-b');
+
+            if (!beam.classList.contains('active')) return;
+
+            // Befestigungspunkte in Viewport-Koordinaten ermitteln
+            const leftAttachRect = leftAttachment.getBoundingClientRect();
+            const rightAttachRect = rightAttachment.getBoundingClientRect();
+            const scaleArea = document.getElementById('scale-area').getBoundingClientRect();
+
+            // Ketten-Positionen berechnen (von Mitte des Befestigungspunkts aus, KEINE Lücke)
+            // Befestigungspunkt hat Höhe 8px + 2*2px border = 12px, daher Mitte bei top + 6px
+            const leftChainTop = leftAttachRect.top + leftAttachRect.height/2 - scaleArea.top;
+            const rightChainTop = rightAttachRect.top + rightAttachRect.height/2 - scaleArea.top;
+
+            // Bucket-Dimensionen ermitteln für Positionsberechnung
+            const bucketARect = bucketA.getBoundingClientRect();
+            const bucketBRect = bucketB.getBoundingClientRect();
+
+            // Ketten horizontal zentriert unter den Befestigungspunkten
+            // Kette hat width: 4px, daher -2px für Zentrierung
+            const leftChainLeft = leftAttachRect.left + leftAttachRect.width/2 - scaleArea.left - 2;
+            const rightChainLeft = rightAttachRect.left + rightAttachRect.width/2 - scaleArea.left - 2;
+
+            // Ketten positionieren und Länge setzen
+            chainLeft.style.top = leftChainTop + 'px';
+            chainLeft.style.left = leftChainLeft + 'px';
+            chainLeft.style.height = CHAIN_LENGTH + 'px';
+
+            chainRight.style.top = rightChainTop + 'px';
+            chainRight.style.left = rightChainLeft + 'px';
+            chainRight.style.height = CHAIN_LENGTH + 'px';
+
+            // Korb-Positionen berechnen (am Ende der Kette)
+            // Ziel-Position: Korb-Top am Ende der Kette
+            const targetBucketATop = leftChainTop + CHAIN_LENGTH;
+            const targetBucketBTop = rightChainTop + CHAIN_LENGTH;
+
+            // Aktuelle Position: Körbe starten bei bottom: 0
+            // Das bedeutet: currentTop = scaleArea.height - bucketHeight
+            const currentBucketATop = scaleArea.height - bucketARect.height;
+            const currentBucketBTop = scaleArea.height - bucketBRect.height;
+
+            // Transform = Ziel - Aktuell (negativ = nach oben, positiv = nach unten)
+            const bucketATransform = targetBucketATop - currentBucketATop;
+            const bucketBTransform = targetBucketBTop - currentBucketBTop;
+
+            bucketAContainer.style.transform = `translateY(${bucketATransform}px)`;
+            bucketBContainer.style.transform = `translateY(${bucketBTransform}px)`;
+        }
+
+        // Animation loop for smooth chain movement
+        let animationFrameId = null;
+
+        function startChainAnimation() {
+            function animate() {
+                updateChainGeometry();
+                animationFrameId = requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        function stopChainAnimation() {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        }
+
+        // Weigh function with animation
+        function weigh() {
+            const weighBtn = document.getElementById('weigh-btn');
+
+            // If already weighing, reset
+            if (isWeighing) {
+                resetScaleAnimation();
+                isWeighing = false;
+                weighBtn.textContent = '⚖️ Wiegen';
+                return;
+            }
+
+            const bucketA = document.getElementById('bucket-a');
+            const bucketB = document.getElementById('bucket-b');
+            const bucketAContainer = document.getElementById('bucket-a-container');
+            const bucketBContainer = document.getElementById('bucket-b-container');
+            const beam = document.getElementById('scale-beam');
+            const monkey = document.getElementById('monkey');
+            const speechBubble = document.getElementById('speech-bubble');
+            const chains = document.querySelectorAll('.chain');
+
+            const orangesA = Array.from(bucketA.querySelectorAll('.orange'));
+            const orangesB = Array.from(bucketB.querySelectorAll('.orange'));
+
+            isWeighing = true;
+            weighCount++;
+            updateWeighCounter();
+
+            // Check if both buckets are empty
+            if (orangesA.length === 0 && orangesB.length === 0) {
+                // Step 1: Monkey appears
+                monkey.classList.add('active');
+
+                // Step 2: Show message
+                setTimeout(() => {
+                    speechBubble.textContent = 'Beide Schalen sind leer!';
+                    speechBubble.classList.add('show');
+                    weighBtn.textContent = '🔄 Zurücksetzen';
+                }, 800);
+                return;
+            }
+
+            // Calculate weights (heavy orange weighs more)
+            let weightA = orangesA.length;
+            let weightB = orangesB.length;
+
+            // Check if heavy orange is in bucket A or B
+            const heavyInA = orangesA.some(orange => parseInt(orange.dataset.id) === heavyOrangeId);
+            const heavyInB = orangesB.some(orange => parseInt(orange.dataset.id) === heavyOrangeId);
+
+            if (heavyInA) {
+                weightA += 0.1; // Add small weight difference
+            }
+            if (heavyInB) {
+                weightB += 0.1;
+            }
+
+            // Monkey appears and lifts beam - everything happens simultaneously
+            monkey.classList.add('active');
+
+            setTimeout(() => {
+                // Ketten erscheinen
+                chains.forEach(chain => chain.classList.add('active'));
+                beam.classList.add('active');
+
+                // Balken kippt basierend auf Gewicht (gleichzeitig mit Ketten)
+                if (weightA > weightB) {
+                    // Left bucket is heavier - beam tilts LEFT (pivots around left attachment)
+                    beam.classList.add('tilt-left');
+                    speechBubble.textContent = 'Links ist schwerer!';
+                } else if (weightB > weightA) {
+                    // Right bucket is heavier - beam tilts RIGHT (pivots around right attachment)
+                    beam.classList.add('tilt-right');
+                    speechBubble.textContent = 'Rechts ist schwerer!';
+                } else {
+                    // Equal weight - beam stays horizontal
+                    speechBubble.textContent = 'Beide gleich schwer!';
+                }
+
+                // Start animation loop for continuous chain/bucket updates
+                startChainAnimation();
+
+                speechBubble.classList.add('show');
+                weighBtn.textContent = '🔄 Zurücksetzen';
+            }, 800);
+        }
+
+        // Show result
+        function showResult() {
+            if (resultShown) return;
+
+            const rightStorage = document.getElementById('right-storage');
+            const rightOranges = rightStorage.querySelectorAll('.orange');
+            const monkey = document.getElementById('monkey');
+            const speechBubble = document.getElementById('speech-bubble');
+
+            // Check if there are multiple oranges in right storage
+            if (rightOranges.length > 1) {
+                // Show monkey with message
+                monkey.classList.add('active');
+                setTimeout(() => {
+                    speechBubble.textContent = `Es ist nicht eindeutig, da liegen ${rightOranges.length} Orangen!`;
+                    speechBubble.classList.add('show');
+                }, 500);
+                return;
+            }
+
+            resultShown = true;
+            const allOranges = document.querySelectorAll('.orange');
+
+            // Check if the heavy orange is alone in right storage
+            const heavyOrange = Array.from(allOranges).find(orange =>
+                parseInt(orange.dataset.id) === heavyOrangeId
+            );
+
+            const isCorrect = rightOranges.length === 1 &&
+                             heavyOrange &&
+                             heavyOrange.parentElement.id === 'right-storage';
+
+            allOranges.forEach(orange => {
+                if (parseInt(orange.dataset.id) === heavyOrangeId) {
+                    orange.classList.add('heavy');
+                    if (isCorrect) {
+                        orange.classList.add('correct');
+                    } else {
+                        orange.classList.add('incorrect');
+                    }
+                }
+            });
+
+            // Show feedback message
+            if (isCorrect) {
+                setTimeout(() => {
+                    alert(`🎉 Perfekt! Du hast die schwere Orange gefunden!\n⚖️ Anzahl Wiegungen: ${weighCount}`);
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    alert(`😢 Leider falsch!\n\nDie schwere Orange muss alleine im rechten Feld liegen.\n⚖️ Anzahl Wiegungen: ${weighCount}`);
+                }, 500);
+            }
+        }
+
+        // Reset game
+        function reset() {
+            initGame();
+        }
+
+        // Event listeners
+        document.getElementById('weigh-btn').addEventListener('click', weigh);
+        document.getElementById('result-btn').addEventListener('click', showResult);
+
+        // Initialize
+        setupDropZones();
+        initGame();
+    </script>
+</body>
+</html>

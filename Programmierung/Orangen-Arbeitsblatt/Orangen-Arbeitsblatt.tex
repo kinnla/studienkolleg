@@ -1,0 +1,93 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage{fontspec}
+\usepackage[ngerman]{babel}
+\usepackage[ngerman]{datetime2}
+\usepackage[a4paper, total={16cm, 27cm}]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{listings}
+\usepackage{tikz}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    commentstyle=\color{black},
+    breaklines=true,
+    frame=single,
+    framesep=1mm,
+    framextopmargin=1mm,
+    framexbottommargin=1mm,
+    showspaces=false,
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny\color{gray}
+}
+\date{\DTMgermanmonthname{\month} \the\year}
+
+\begin{document}
+\hrule
+\begin{center}
+{\large\bf Algorithmen und Funktionen}\\[-0mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+Oberkurs Informatik \hfill \DTMgermanmonthname{\month} \the\year\\[2mm]
+\end{center}
+\hrule
+
+%\par\bigskip
+
+% ============================================================
+
+\section*{Orangen Wiegen}
+ Sie haben \textbf{neun Orangen}. Alle sehen gleich aus, aber \textbf{eine} ist schwerer als die anderen. 
+
+\begin{enumerate}
+\item Wiegen Sie die Orangen mit einer virtuellen Balkenwaage. Öffnen Sie dazu die Simulation im ISIS-Kurs.\footnote{\url{https://isis.tu-berlin.de/mod/resource/view.php?id=2253481}} Probieren Sie verschiedene Strategien aus.
+
+\item Schreiben Sie eine Anleitung, wie man mit möglichst wenig Wiegevorgängen die schwere Orange finden kann. Die Anleitung soll eindeutig sein, sodass eine andere Person sie ohne Nachfragen ausführen kann.
+
+\begin{tcolorbox}[colback=white, colframe=black, boxrule=0.3pt, height=7cm]
+\vspace*{\fill}
+\end{tcolorbox}
+
+\item Finden Sie die Person mit dem gleichen Buchstaben in der linken oberen Ecke. Probieren Sie Ihre Algorithmen gegenseitig aus: eine Person liest vor, die andere führt die Aktionen aus, ohne nachzufragen.
+
+\end{enumerate}
+
+
+
+% ============================================================
+\section*{Eigenschaften eines Algorithmus}
+
+\begin{tcolorbox}[colback=white, colframe=black, boxrule=0.3pt]
+\textbf{Definition:}\par
+\vspace{2cm}
+
+\textbf{Eigenschaften:}
+\vspace{4.5cm}
+\end{tcolorbox}
+
+% ============================================================
+\newpage
+\section*{Quersumme}
+
+Die \textbf{Quersumme} einer Zahl ist die Summe ihrer Ziffern. Beispiele: Die Quersumme von 44 ist $4+4 = 8$. Die Quersumme von 2026 ist $2+0+2+6 = 10$. 
+
+\begin{enumerate}
+\item Beschreiben Sie einen Algorithmus, der die Quersumme einer natürlichen Zahl $n$ berechnet. 
+
+\begin{tcolorbox}[colback=white, colframe=black, boxrule=0.3pt, height=7cm]
+\vspace*{\fill}
+\end{tcolorbox}
+
+\item Implementieren Sie anschließend Ihren Algorithmus als eine Python-Funktion (siehe Aufgabe im ISIS-Kurs).
+\end{enumerate}
+\end{document}
