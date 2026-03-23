@@ -1,0 +1,227 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage{fontspec}
+\usepackage[ngerman]{babel}
+\usepackage[ngerman]{datetime2}
+\usepackage[a4paper, total={16cm, 25cm}]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+\newcommand{\korr}[1]{\textbf{\color{blue}#1}}
+\usepackage{listings}
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    commentstyle=\color{black},
+    breaklines=true,
+    frame=single,
+    framesep=1mm,
+    framextopmargin=1mm,
+    framexbottommargin=1mm,
+    showspaces=false,
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    literate=
+      {ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+      {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+      {ß}{{\ss}}1
+}
+
+% Stil für Lösungs-Listings in blau
+\lstdefinestyle{solution}{
+    language=Python,
+    basicstyle=\ttfamily\small\color{blue},
+    keywordstyle=\color{blue},
+    stringstyle=\color{blue},
+    commentstyle=\color{blue!70},
+    breaklines=true,
+    frame=single,
+    framesep=1mm,
+    framextopmargin=1mm,
+    framexbottommargin=1mm,
+    showspaces=false,
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    rulecolor=\color{blue},
+    literate=
+      {ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+      {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+      {ß}{{\ss}}1
+}
+
+% Umgebung für Lösungen
+\newtcolorbox{loesung}{
+    colback=blue!3,
+    colframe=blue!50,
+    coltitle=white,
+    fonttitle=\bfseries,
+    title=Musterlösung,
+    left=2mm,
+    right=2mm,
+    top=1mm,
+    bottom=1mm
+}
+
+\date{\DTMgermanmonthname{\month} \the\year}
+
+\begin{document}
+\hrule
+\begin{center}
+{\large\bf Python: Programmierkonstrukte - Übungsblatt 1 -- Musterlösung}\\[-0mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+Informatik \hfill \DTMgermanmonthname{\month} \the\year\\[2mm]
+\end{center}
+\hrule
+\par\bigskip
+
+\section*{Aufgabe 1: Code-Analyse}
+
+Erklären Sie, was das folgende Programm macht. Beschreiben Sie dabei:
+\begin{itemize}[leftmargin=*]
+\item Was wird eingegeben?
+\item Welche Berechnungen werden durchgeführt?
+\item Was wird ausgegeben?
+\item Geben Sie ein konkretes Beispiel mit Eingabe und Ausgabe an.
+\end{itemize}
+
+\begin{lstlisting}
+name = input("Wie heißen Sie? ")
+alter = int(input("Wie alt sind Sie? "))
+
+if alter >= 18:
+    status = "volljährig"
+    jahre_bis_rente = 67 - alter
+else:
+    status = "minderjährig"
+    jahre_bis_volljaehrigkeit = 18 - alter
+
+print(f"Hallo {name}!")
+print(f"Sie sind {status}.")
+
+if alter >= 18:
+    if jahre_bis_rente > 0:
+        print(f"Bis zur Rente sind es noch {jahre_bis_rente} Jahre.")
+    else:
+        print("Sie sind bereits im Rentenalter oder erreichen es bald.")
+else:
+    print(f"In {jahre_bis_volljaehrigkeit} Jahren werden Sie volljährig.")
+\end{lstlisting}
+
+\begin{loesung}
+\color{blue}
+\textbf{Eingabe:} Das Programm fragt nach dem Namen (als Text) und dem Alter (als ganze Zahl).
+
+\par\medskip
+
+\textbf{Berechnungen:} Wenn die Person 18 oder älter ist, werden die Jahre bis zur Rente berechnet (\texttt{67 - alter}). Wenn sie jünger als 18 ist, werden die Jahre bis zur Volljährigkeit berechnet (\texttt{18 - alter}).
+
+\par\medskip
+
+\textbf{Ausgabe:} Das Programm gibt eine Begrüßung mit dem Namen und dem Status aus. Für Volljährige wird entweder die verbleibende Zeit bis zur Rente oder ein Hinweis auf das Rentenalter ausgegeben. Für Minderjährige wird die Zeit bis zur Volljährigkeit ausgegeben.
+
+\par\medskip
+
+\textbf{Beispiel:}\\[-8mm]
+\begin{itemize}[leftmargin=*]
+\item Eingabe: \texttt{name = "Kurt"}, \texttt{alter = 25}\\[-7mm]
+\item Ausgabe:\\
+\texttt{Hallo Kurt!}\\
+\texttt{Sie sind volljährig.}\\
+\texttt{Bis zur Rente sind es noch 42 Jahre.}
+\end{itemize}
+\end{loesung}
+
+\section*{Aufgabe 2: Programmlogik}
+Was gibt dieses Programm aus, wenn x = 5 eingegeben wird? Erklären Sie das Verhalten:
+
+\begin{lstlisting}
+x = int(input("Geben Sie eine Zahl ein: "))
+if x > 0:
+    print("Positiv")
+if x > 10:
+    print("Groß")
+else:
+    print("Klein oder gleich 10")
+\end{lstlisting}
+
+\begin{loesung}
+\color{blue}
+Das Programm gibt aus:
+\begin{verbatim}
+Positiv
+Klein oder gleich 10
+\end{verbatim}
+
+\textbf{Erklärung:} Die if-Anweisung in Zeile 2 ist erfüllt, so dass \texttt{positiv} ausgegeben wird. Die if-Anweisung in Zeile 4 ist nicht erfüllt, so dass der else-Zweig ausgeführt und \texttt{Klein oder gleich 10} ausgegeben wird.
+\end{loesung}
+
+\section*{Aufgabe 3: Fehlersuche}
+
+Der folgende Code soll das Alter einer Person berechnen. Finden Sie alle Fehler und korrigieren Sie diese:
+
+\begin{lstlisting}[escapeinside={<@}{@>}]
+geburtsjahr = <@\korr{int(}@>input("In welchem Jahr wurden Sie geboren?<@\korr{"}@> )<@\korr{)}@>
+aktuelles_jahr = <@\sout{2024} \korr{\the\year}@>
+alter = <@\sout{geburts\_jahr - aktuelles\_jahr} \korr{aktuelles\_jahr - geburtsjahr}@>
+print(f"Sie sind <@\sout{alter} \korr{\{alter\}}@> Jahre alt.")
+\end{lstlisting}
+
+\begin{loesung}
+\color{blue}
+\textbf{Fehler 1 (Zeile 1):} Es fehlt ein schließendes Anführungszeichen vor der Klammer.\\
+\textbf{Fehler 2 (Zeile 1):} \texttt{input()} gibt einen String zurück. Es fehlt die Umwandlung in eine Zahl mit \texttt{int()}.\\
+\textbf{Fehler 3 (Zeile 2):} Das aktuelle Jahr ist \the\year.\\
+\textbf{Fehler 4 (Zeile 3):} Falscher Variablenname: \texttt{geburts\_jahr} statt \texttt{geburtsjahr} (mit Unterstrich, aber die Variable wurde ohne Unterstrich definiert).\\
+\textbf{Fehler 5 (Zeile 3):} Die Subtraktion ist vertauscht. Es muss \texttt{aktuelles\_jahr - geburtsjahr} heißen, nicht umgekehrt.\\
+\textbf{Fehler 6 (Zeile 4):} Im f-String fehlen die geschweiften Klammern um \texttt{alter}: es muss \texttt{\{alter\}} heißen.
+\end{loesung}
+
+\pagebreak
+
+\section*{Aufgabe 4: Quotienten berechnen}
+Vervollständigen Sie das Programm, das zwei Zahlen von der Tastatur einliest und ihren Quotienten ausgibt. Ersetzen Sie dazu die \ldots~durch geeigneten Programmcode.
+
+\begin{lstlisting}[escapeinside={<@}{@>}]
+# Eingabe
+zahl1 = <@\korr{float(input("Geben Sie die erste Zahl ein: "))}@>
+zahl2 = <@\korr{float(input("Geben Sie die zweite Zahl ein: "))}@>
+
+# Fehlerbehandlung bei Division durch 0
+if <@\korr{zahl2 == 0:}@>
+    <@\texttt{print}\korr{(\textquotedbl{}Fehler: Division durch 0 ist nicht erlaubt.\textquotedbl{})}@>
+else:
+    # Berechnung und Ausgabe
+    quotient = <@\korr{zahl1 / zahl2}@>
+    print(f"Quotient: <@\korr{\{quotient\}"}@>)
+\end{lstlisting}
+
+\section*{Aufgabe 5: Schaltjahr prüfen}
+Schreiben Sie ein Programm, das prüft, ob ein Jahr ein Schaltjahr ist. Ein Jahr ist genau dann ein Schaltjahr, wenn es durch 4 teilbar ist. Es darf dabei nicht durch 100 teilbar sein. Eine Ausnahme gilt für Jahre, die durch 400 teilbar sind: Diese sind trotzdem Schaltjahre.
+
+Sie können ihr Programm mit diesen Eingaben testen: 1900 (kein Schaltjahr), 2000 (Schaltjahr), 2023 (kein Schaltjahr) und 2024 (Schaltjahr).
+
+\begin{loesung}
+\color{blue}
+\begin{lstlisting}[style=solution]
+jahr = int(input("Geben Sie ein Jahr ein: "))
+
+if (jahr % 400 == 0) or (jahr % 4 == 0 and jahr % 100 != 0):
+    print(f"{jahr} ist ein Schaltjahr.")
+else:
+    print(f"{jahr} ist kein Schaltjahr.")
+\end{lstlisting}
+\end{loesung}
+
+\end{document}
