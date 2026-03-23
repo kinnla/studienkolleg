@@ -8,6 +8,7 @@
 *.toc
 *.vrb
 *.listing
+*.pdf
 
 # clutter
 .DS_Store
