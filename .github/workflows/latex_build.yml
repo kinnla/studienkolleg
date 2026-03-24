@@ -112,6 +112,22 @@ jobs:
             compiled-pdfs.zip
           if-no-files-found: error
 
+      # Publish the ZIP file as a stable release asset that can be linked from the README.
+      - name: Publish PDF ZIP release
+        if: steps.changed-tex.outputs.any_changed == 'true' || steps.changed-workflow.outputs.any_changed == 'true'
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: compiled-pdfs.zip
+          commit: ${{ github.sha }}
+          name: Latest PDFs
+          removeArtifacts: true
+          replacesArtifacts: true
+          tag: pdfs-latest
+          body: |
+            This release is maintained automatically by the LaTeX build workflow.
+            Download `compiled-pdfs.zip` to get the latest generated PDFs from the repository.
+
       # Make the workflow output explicit when neither TeX files nor this workflow changed.
       - name: No changed TeX files
         if: steps.changed-tex.outputs.any_changed != 'true' && steps.changed-workflow.outputs.any_changed != 'true'
