@@ -53,6 +53,7 @@ jobs:
             texlive-fonts-recommended \
             texlive-lang-german \
             texlive-latex-extra \
+            texlive-luatex \
             texlive-pictures
 
       # Compile each changed .tex file and copy the generated PDF into the artifact folder.
@@ -83,7 +84,7 @@ jobs:
             echo "Compiling ${tex_file}"
             (
               cd "$tex_dir"
-              latexmk -pdf -interaction=nonstopmode -halt-on-error "$tex_name"
+              latexmk -lualatex -interaction=nonstopmode -halt-on-error "$tex_name"
             )
 
             mkdir -p "$(dirname "$artifact_pdf")"
