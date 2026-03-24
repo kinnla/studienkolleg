@@ -1,0 +1,119 @@
+name: Build LaTeX PDFs
+
+on:
+  # Run the workflow for every push to the main branch.
+  push:
+    branches:
+      - main
+
+permissions:
+  # Keep write access available for future release/publishing extensions.
+  contents: write
+
+jobs:
+  build-latex:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the full repository history so changed-files can diff reliably.
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # Detect only changed TeX files from the current push.
+      - name: Detect changed TeX files
+        id: changed-tex
+        uses: tj-actions/changed-files@24d32ffd492484c1d75e0c0b894501ddb9d30d62 # v47
+        with:
+          files: |
+            **/*.tex
+          separator: "\n"
+          safe_output: false
+          since_last_remote_commit: true
+
+      # Detect whether this workflow file itself changed, so the first rollout can build everything.
+      - name: Detect workflow changes
+        id: changed-workflow
+        uses: tj-actions/changed-files@24d32ffd492484c1d75e0c0b894501ddb9d30d62 # v47
+        with:
+          files: |
+            .github/workflows/latex_build.yml
+          separator: "\n"
+          safe_output: false
+          since_last_remote_commit: true
+
+      # Install latexmk and a practical TeX Live set for this repository.
+      - name: Install LaTeX toolchain
+        if: steps.changed-tex.outputs.any_changed == 'true' || steps.changed-workflow.outputs.any_changed == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            latexmk \
+            texlive-fonts-recommended \
+            texlive-lang-german \
+            texlive-latex-extra \
+            texlive-pictures
+
+      # Compile each changed .tex file and copy the generated PDF into the artifact folder.
+      - name: Build changed TeX files
+        if: steps.changed-tex.outputs.any_changed == 'true' || steps.changed-workflow.outputs.any_changed == 'true'
+        run: |
+          set -euo pipefail
+
+          mkdir -p compiled-pdfs
+
+          if [ "${{ steps.changed-workflow.outputs.any_changed }}" = "true" ] && [ "${{ steps.changed-tex.outputs.any_changed }}" != "true" ]; then
+            echo "Workflow changed without TeX changes; building all TeX files for initial artifact creation."
+            find . -type f -name '*.tex' | sort > /tmp/changed-tex-files.txt
+          else
+            cat <<'EOF' > /tmp/changed-tex-files.txt
+            ${{ steps.changed-tex.outputs.all_changed_files }}
+            EOF
+          fi
+
+          while IFS= read -r tex_file; do
+            [ -n "$tex_file" ] || continue
+            [ -f "$tex_file" ] || continue
+
+            tex_dir="$(dirname "$tex_file")"
+            tex_name="$(basename "$tex_file")"
+            pdf_name="${tex_name%.tex}.pdf"
+            output_pdf="${tex_dir}/${pdf_name}"
+            artifact_pdf="compiled-pdfs/${output_pdf}"
+
+            echo "Compiling ${tex_file}"
+            (
+              cd "$tex_dir"
+              latexmk -pdf -interaction=nonstopmode -halt-on-error "$tex_name"
+            )
+
+            mkdir -p "$(dirname "$artifact_pdf")"
+            cp "$output_pdf" "$artifact_pdf"
+          done < /tmp/changed-tex-files.txt
+
+      # Bundle all generated PDFs into a single ZIP archive for convenient download.
+      - name: Create ZIP archive
+        if: steps.changed-tex.outputs.any_changed == 'true' || steps.changed-workflow.outputs.any_changed == 'true'
+        run: |
+          set -euo pipefail
+          (
+            cd compiled-pdfs
+            zip -r ../compiled-pdfs.zip .
+          )
+
+      # Upload all generated PDFs and the ZIP archive as a single artifact.
+      - name: Upload compiled PDFs
+        if: steps.changed-tex.outputs.any_changed == 'true' || steps.changed-workflow.outputs.any_changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-pdfs
+          path: |
+            compiled-pdfs/**
+            compiled-pdfs.zip
+          if-no-files-found: error
+
+      # Make the workflow output explicit when neither TeX files nor this workflow changed.
+      - name: No changed TeX files
+        if: steps.changed-tex.outputs.any_changed != 'true' && steps.changed-workflow.outputs.any_changed != 'true'
+        run: echo "No changed .tex files detected; skipping LaTeX build."
