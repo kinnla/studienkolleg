@@ -1,0 +1,72 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage{fontspec}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper, total={16cm, 25cm}]{geometry}
+\usepackage[ngerman]{datetime2}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{cancel}
+\usepackage{url}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{listings}
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{gray},
+    breaklines=true
+}
+\date{\DTMgermanmonthname{\month} \the\year}
+\begin{document}
+\hrule
+\begin{center}
+{\large\bf Python: Darstellung eines Rechtecks}\\[-0mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+\makeatletter Informatik \hfill \@date\\[2mm] \makeatother
+\end{center}
+\hrule
+\par\bigskip
+\noindent
+\textbf{Zeichnen eines Rechtecks}
+
+\begin{enumerate}
+\item
+Schreiben Sie ein Python Programm, das von der Konsole die Höhe und Breite eines Rechtecks einliest, den Flächeninhalt berechnet und anschließend ausgibt. Nur ganze positive Zahlen sind erlaubt.
+
+\item
+Erweitern Sie Ihr Programm um eine Darstellung des Rechtecks. Nutzen Sie die folgenden ASCII-Zeichen:
+\begin{itemize}
+\item \texttt{'+'} für Eckpunkte
+\item \texttt{'-'}  für die obere und untere Seite
+\item \texttt{'|'}  für die linke und rechte Seite
+\item \texttt{chr(32)} für den Innenbereich.
+\end{itemize}
+Bei einer Höhe 0 soll eine horizontale Linie mit zwei Eckpunkten und bei Breite 0 eine vertikale Linie mit zwei Eckpunkten gezeichnet werden. Sind Breite und Höhe 0, so soll nur das Zeichen \texttt{'+'} ausgegeben werden.
+
+\item
+Lassen Sie 100 rote Rosen auf das Rechteck regnen. Die Rosen fallen zufällig, jede Position (also jedes Zeichen der Darstellung) ist dabei gleich wahrscheinlich. Zählen Sie, wie viele Rosen im Inneren des Rechtecks, auf dem Rand und auf einem Eckpunkt landen und geben Sie das Ergebnis aus. Hinweis: Importieren Sie mit \texttt{import random} das Modul für Zufallszahlen. Mit dem Befehl \texttt{random.randint(m, n)}\footnote{\url{https://docs.python.org/3/library/random.html\#random.randint}} erzeugen Sie Zufallszahlen $r \in \mathbb{Z}$ mit $m \leq r \leq n$.
+\end{enumerate}
+
+\textbf{Testlauf für ein Rechteck mit Breite 12 und Höhe 5:}
+
+\begin{tcolorbox}[colback=white,colframe=black,fontupper=\ttfamily]
+Geben Sie die Breite des Rechtecks ein: 12\\
+Geben Sie die Höhe des Rechtecks ein: 5\\
++-----------+\\
+|\ \ \ \ \ \ \ \ \ \ \ |\\
+|\ \ \ \ \ \ \ \ \ \ \ |\\
+|\ \ \ \ \ \ \ \ \ \ \ |\\
+|\ \ \ \ \ \ \ \ \ \ \ |\\
++-----------+\\
+Die 100 roten Rosen verteilen sich zufällig wie folgt:\\
+- aufs Innere: 54\\
+- auf den Rand: 40\\
+- auf die Eckpunkte: 6
+\end{tcolorbox}
+\end{document}
