@@ -21,7 +21,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Detect only changed TeX files from the current push.
+      # Detect whether any TeX files changed in the current push.
       - name: Detect changed TeX files
         id: changed-tex
         uses: tj-actions/changed-files@24d32ffd492484c1d75e0c0b894501ddb9d30d62 # v47
@@ -56,20 +56,16 @@ jobs:
             texlive-luatex \
             texlive-pictures
 
-      # Compile each changed .tex file and copy the generated PDF into the artifact folder.
-      - name: Build changed TeX files
+      # Build all TeX files whenever TeX sources or this workflow changed.
+      - name: Build TeX files
         if: steps.changed-tex.outputs.any_changed == 'true' || steps.changed-workflow.outputs.any_changed == 'true'
         run: |
           set -euo pipefail
 
           mkdir -p compiled-pdfs
 
-          if [ "${{ steps.changed-workflow.outputs.any_changed }}" = "true" ] && [ "${{ steps.changed-tex.outputs.any_changed }}" != "true" ]; then
-            echo "Workflow changed without TeX changes; building all TeX files for initial artifact creation."
-            find . -type f -name '*.tex' | sort > /tmp/changed-tex-files.txt
-          else
-            printf '%s\n' "${{ steps.changed-tex.outputs.all_changed_files }}" > /tmp/changed-tex-files.txt
-          fi
+          echo "Building all TeX files so the ZIP archive always contains the full PDF set."
+          find . -type f -name '*.tex' | sort > /tmp/changed-tex-files.txt
 
           while IFS= read -r tex_file; do
             [ -n "$tex_file" ] || continue
