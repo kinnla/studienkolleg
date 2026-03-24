@@ -67,9 +67,7 @@ jobs:
             echo "Workflow changed without TeX changes; building all TeX files for initial artifact creation."
             find . -type f -name '*.tex' | sort > /tmp/changed-tex-files.txt
           else
-            cat <<'EOF' > /tmp/changed-tex-files.txt
-            ${{ steps.changed-tex.outputs.all_changed_files }}
-            EOF
+            printf '%s\n' "${{ steps.changed-tex.outputs.all_changed_files }}" > /tmp/changed-tex-files.txt
           fi
 
           while IFS= read -r tex_file; do

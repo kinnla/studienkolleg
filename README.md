@@ -1,2 +1,2 @@
 # studienkolleg
-Unterrichtsmaterialien für Informatikunterricht am Studienkolleg der TU Berlin
+Unterrichtsmaterialien für den Informatikunterricht am Studienkolleg der TU Berlin
