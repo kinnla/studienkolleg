@@ -1,0 +1,114 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,10pt]{article}
+\usepackage{fontspec}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper, total={16cm, 26cm}]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage[ngerman]{datetime2}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{listings}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{gray},
+    breaklines=true,
+    frame=single,
+    framesep=1mm,
+    framextopmargin=1mm,
+    framexbottommargin=1mm,
+    showspaces=false,
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    literate=
+      {ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+      {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+      {ß}{{\ss}}1
+}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{}{0em}{}
+
+\date{\DTMgermanmonthname{\month} \the\year}
+
+\begin{document}
+\shorthandoff{"}
+\thispagestyle{empty}
+\hrule
+\begin{center}
+{\large\bf Python: Schleifen - Ausgewählte Aufgaben}\\[-0mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+Informatik \hfill \DTMgermanmonthname{\month} \the\year\\[2mm]
+\end{center}
+\hrule
+%\par\bigskip
+
+% Aufgabe 1
+\section*{Aufgabe 1: Eingabevalidierung}
+Schreiben Sie ein Python Programm. Das Programm soll die Benutzerin so lange nach einer Zahl fragen, bis er eine gültige Zahl zwischen 1 und 10 eingibt. Für ungültige Eingaben (zu klein, zu groß, keine Zahl) soll der Benutzerin eine entsprechende Nachricht angezeigt werden. Abschließend soll das Quadrat der Zahl ausgegeben werden.
+
+% Aufgabe 2
+\section*{Aufgabe 2: break und continue}
+Führen Sie das folgende Programm gedanklich durch. Geben Sie an, was das Programm ausgibt.
+\begin{lstlisting}
+zahlen = [4, 7, 2, 9, 1, 6, 3]
+summe = 0
+for z in zahlen:
+    if z % 2 == 0:
+        print(f"Überspringe {z}")
+        continue
+    if summe + z > 15:
+        print(f"Abbruch bei {z}")
+        break
+    summe = summe + z
+    print(f"Addiere {z}, Summe = {summe}")
+print(f"Ergebnis: {summe}")
+\end{lstlisting}
+
+% Aufgabe 3
+\section*{Aufgabe 3: Schritt-für-Schritt Ausführung}
+\begin{enumerate}[label=\alph*)]
+
+\item Führen Sie das folgende Programm gedanklich durch und geben Sie für jeden Schleifendurchlauf an, was in Zeile 3 ausgegeben wird.
+\begin{lstlisting}
+for i in range(2):
+    for j in range(3):
+        print(f"{i} x {j} = {i * j}")
+\end{lstlisting}
+
+\item Führen Sie das folgende Programm gedanklich durch. Geben Sie für jeden Schleifendurchlauf an, was in den Zeilen 4 und 6 ausgegeben wird.
+\begin{lstlisting}
+liste = [8, 3, 12, 1]
+while liste:
+    e = liste.pop(0)
+    print(f"Groß: {e}") if e > 5 else print(f"Klein: {e}")
+    if e > 5:
+        liste.append(e // 2)
+    print(f"Liste: {liste}")
+\end{lstlisting}
+
+\end{enumerate}
+
+% Aufgabe 4
+\section*{Aufgabe 4: Mittelwert berechnen}
+Schreiben Sie eine Funktion \texttt{mittelwert(liste)}, die den Mittelwert einer Liste von Zahlen berechnet und zurückgibt. Verwenden Sie eine \texttt{for}-Schleife, um die Summe aller Elemente zu berechnen. Verwenden Sie \emph{nicht} die eingebauten Funktionen \texttt{sum()} oder \texttt{len()}.
+
+\begin{lstlisting}
+def mittelwert(liste):
+    # Ihr Code hier
+
+messwerte = [3.5, 7.2, 1.8, 9.4, 5.1]
+ergebnis = mittelwert(messwerte)
+print(f"Mittelwert: {ergebnis}") # Erwartete Ausgabe: Mittelwert: 5.4
+\end{lstlisting}
+
+\end{document}
