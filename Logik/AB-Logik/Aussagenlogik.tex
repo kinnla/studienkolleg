@@ -1,0 +1,144 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage{luacode}
+\usepackage{fontspec}
+\usepackage{emoji}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper, total={16cm, 26cm}]{geometry}
+\usepackage[ngerman]{datetime2}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{cancel}
+
+\date{\DTMgermanmonthname{\month} \the\year}
+
+\hrule
+
+\begin{document}
+
+\begin{center}
+{\large\bf Aussagenlogik}\\[-2mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+\makeatletter Informatik \hfill \@date\\[2mm] \makeatother
+\end{center}
+\hrule
+\par\bigskip
+
+\noindent
+Eine {\bfseries Aussage} (englisch: \emph{proposition}) ist ein sprachlicher Ausdruck, der entweder wahr oder falsch sein kann, aber nicht beides gleichzeitig. Sie drückt eine Tatsache oder Behauptung über die Welt aus und ist die Grundeinheit der Aussagenlogik.
+
+\medskip
+\noindent
+{\bfseries Beispiele für Aussagen:}
+\begin{itemize}
+    \item ``Der Himmel ist blau.'' (Wahrheitswert hängt vom Kontext ab)
+    \item ``Der Mond umkreist die Erde.'' (wahr)
+    \item ``Alle Säugetiere sind warmblütig.'' (wahr)
+    \item ``$2 + 2 = 4$'' (immer wahr, arithmetisch beweisbar)
+    \item ``$\forall x \in \mathbb{R},\; x^2 > 0$'' (falsch, da $0 \in \mathbb{R}$ und $0^2 = 0$)
+\end{itemize}
+
+\medskip
+\noindent
+{\bfseries Keine Aussagen (kein objektiver Wahrheitswert):}
+\begin{itemize}
+    \item ``Berlin ist eine schöne Stadt.'' (subjektives Werturteil)
+    \item ``Oh mein Gott!'' (Ausruf, kein Wahrheitswert)
+    \item ``Schließ die Tür.'' (Aufforderung, kein Wahrheitswert)
+    \item ``Dieser Satz ist falsch.'' (Paradoxon: wenn wahr, dann falsch; wenn falsch, dann wahr)
+\end{itemize}
+
+\medskip
+\noindent
+Die {\bfseries Aussagenlogik} untersucht, wie sich Aussagen mit logischen Verknüpfungen wie ``und'', ``oder'' und ``nicht'' kombinieren lassen, um komplexe logische Aussagen zu bilden. Die {\bfseries Prädikatenlogik} erweitert die Aussagenlogik, indem sie Quantoren ($\forall$, $\exists$) und Variablen einführt, um Aussagen über Objekte und deren Eigenschaften auszudrücken.
+
+\begin {enumerate}
+\item Welche der folgenden Sätze sind Aussagen im logischen Sinne? Begründen Sie Ihre Antwort.
+
+\begin{enumerate}
+    \item ``Die Erde ist flach.''
+    \vfill
+    \item ``Ist es draußen kalt?''
+    \vfill
+    \item ``Schlaf schneller, Genosse!''
+    \vfill
+    \item ``Schokolade schmeckt besser als Vanille.''
+    \vfill
+    \item ``$5 > 3$''
+    \vfill
+    \item ``Dieser Satz ist falsch.''
+    \vfill
+    \item ``Alle geraden Zahlen größer als 2 können als Summe zweier Primzahlen dargestellt werden.'' (Goldbach'sche Vermutung)
+\end{enumerate}
+\pagebreak
+\item Tauben fotografieren\\
+\emph{Max geht gerne spazieren oder sitzt im Park. Wenn es regnet, bleibt er zu Hause. Wenn Max zu Hause ist, liest er entweder ein Buch oder schaut einen Film. Er schaut keinen Film, wenn er spazieren geht. Wenn er im Park sitzt und eine Taube sieht, dann fotografiert er sie.}
+
+\begin {enumerate}
+\item Lesen Sie den Text und identifizieren Sie die darin enthaltenen elementaren Aussagen.
+\begin{multicols}{2}
+    $A$: Max geht spazieren. \\[3mm]
+    $B$: \underline{\hspace{6cm}} \\[3mm]
+    $C$: \underline{\hspace{6cm}} \\[3mm]
+    $D$: \underline{\hspace{6cm}} 
+
+    \columnbreak
+
+    $E$: \underline{\hspace{6cm}} \\[3mm]
+    $F$: \underline{\hspace{6cm}} \\[3mm]
+    $G$: \underline{\hspace{6cm}} \\[3mm]
+    $H$: \underline{\hspace{6cm}}
+\end{multicols}
+\item Formulieren Sie die Aussagen aus der Geschichte als logische Ausdrücke: \\[-1mm]
+
+\begin{enumerate}
+    \item Max geht spazieren oder sitzt im Park: \underline{\hspace{4cm}} \\[-1mm]
+    \item Wenn es regnet, bleibt Max zu Hause: \underline{\hspace{4cm}} \\[-1mm]
+    \item Wenn Max zu Hause ist, liest er entweder ein Buch oder schaut einen Film:\\[4mm] \underline{\hspace{4cm}}\\[-2mm]
+    \item Wenn Max spazieren geht, schaut er keinen Film:  \underline{\hspace{4cm}}\\[-2mm]
+    \item Wenn Max im Park sitzt und eine Taube sieht, dann fotografiert er sie:\\[4mm] \underline{\hspace{4cm}}\\[-2mm]
+\end{enumerate}
+
+Nutzen Sie dafür die folgenden Operatoren: 
+\begin{itemize}
+    \item ``und'', Konjunktion: $A \land B$
+    \item ``oder'', Disjunktion: $A \lor B$
+    \item ``nicht'' oder ``kein'', Negation: $\neg A$
+    \item ``wenn ... dann'', Implikation: $A \Rightarrow B$
+    \item ``entweder oder'', Exklusives oder: $A \oplus B$
+\end{itemize}
+\end{enumerate}
+
+\item Für die Auswertung logischer Ausdrücke in Abhängigkeit von den in ihnen enthaltenen Variablen verwenden wir Wahrheitstabellen. Für die grundlegenden logischen Operatoren sind die Werte per Definition festgelegt. Befüllen Sie die noch leeren Spalten der Tabelle.
+
+\begin{center}
+\begin{tabular}{|c|c||c|c|c|c|c||c|c|}
+    \hline
+    $A$ & $B$ & $A \land B$ & $A \lor B$ & $A \Rightarrow B$ & $A \Leftrightarrow B$ & $A \oplus B$ & $B \Rightarrow A$ & $(A \oplus B) \land (B \Rightarrow A)$ \\
+    \hline
+    w  & w  & w & w & w & w & f & & \\
+    w  & f  & f & w & f & f & w & & \\
+    f  & w  & f & w & w & f & w & & \\
+    f  & f  & f & f & w & w & f & & \\
+    \hline
+\end{tabular}
+\end{center}
+
+
+\item Erstellen Sie Wahrheitstabellen für die  folgenden Aussagen aus Aufgabe 1b). Hinweis: bei einer Aussage mit drei Variablen gibt es $2^3 = 8$ mögliche Belegungen der Variablen. Ihre Tabelle sollte entsprechend acht Zeilen enthalten.
+
+\begin{enumerate}
+\item Wenn Max zu Hause ist, liest er entweder ein Buch oder schaut einen Film.
+\item Max schaut keinen Film, wenn er spazieren geht.
+\item Wenn Max im Park sitzt und eine Taube sieht, dann fotografiert er sie.
+\end{enumerate}
+
+
+\end{enumerate}
+
+\end{document}

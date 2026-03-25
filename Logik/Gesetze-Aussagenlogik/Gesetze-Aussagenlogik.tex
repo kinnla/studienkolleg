@@ -1,0 +1,164 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage{luacode}
+\usepackage{fontspec}
+\usepackage{emoji}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper, total={16cm, 25cm}]{geometry}
+\usepackage[ngerman]{datetime2}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\date{\DTMgermanmonthname{\month} \the\year}
+
+\begin{document}
+\hrule
+\begin{center}
+{\large\bf Gesetze der Aussagenlogik}\\[-0mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+\makeatletter Informatik Unterkurs \hfill \@date\\[2mm] \makeatother
+\end{center}
+\hrule
+
+% Definitionen
+\section*{Definitionen}
+\begin{itemize}
+\item Eine \textbf{Tautologie} ist eine aussagenlogische Formel, die bei jeder möglichen Belegung ihrer Variablen den Wahrheitswert \textit{wahr} annimmt. Beispiel: $A \vee \neg A$.
+\item Eine \textbf{Kontradiktion} ist eine aussagenlogische Formel, die bei jeder möglichen Belegung ihrer Variablen immer den Wahrheitswert \textit{falsch} annimmt. Beispiel: $A \wedge \neg A$.
+\end{itemize}
+
+% Gesetze der Aussagenlogik
+\section*{Gesetze der Aussagenlogik}
+
+Die folgenden Gesetze bilden das Fundament der Aussagenlogik und ermöglichen systematische Umformungen aussagenlogischer Formeln. Ähnlich wie bei algebraischen Termumformungen in der Mathematik erlauben sie uns, komplexe Ausdrücke Schritt für Schritt in äquivalente, oft einfachere Formen zu überführen. Jedes dieser Gesetze kann durch Wahrheitstabellen formal bewiesen werden, indem alle möglichen Belegungen der beteiligten Variablen überprüft werden.
+
+Die Aussagenlogik bildet zusammen mit diesen Gesetzen ein vollständiges axiomatisches System, das als Boolesche Algebra bekannt ist – benannt nach dem Mathematiker George Boole, der im 19. Jahrhundert grundlegende Konzepte der formalen Logik entwickelte.
+
+\begin{multicols}{2}
+
+% Grundlegende Gesetze
+\subsection*{Grundlegende Gesetze}
+
+\begin{enumerate}[label=\arabic*.]
+
+\item Negation:\\
+$\neg w \Leftrightarrow f$\\
+$\neg f \Leftrightarrow w$
+
+\item Doppelnegation:\\
+$\neg\neg A \Leftrightarrow A$
+
+\item Gesetz vom ausgeschlossenen Dritten:\\
+$A \vee \neg A \Leftrightarrow w$
+
+\item Widerspruchsprinzip:\\
+$\neg(A \wedge \neg A) \Leftrightarrow w$
+
+\item Neutralitäts- oder Dominanzgesetze:\\
+$A \wedge w \Leftrightarrow A$\\
+$A \vee f \Leftrightarrow A$
+
+\item Extremal- oder Annihilationsgesetze:\\
+$A \wedge f \Leftrightarrow f$\\
+$A \vee w \Leftrightarrow w$
+\end{enumerate}
+
+% Gesetze für die Implikation
+\subsection*{Gesetze für die Implikation}
+
+\begin{enumerate}[label=\arabic*., start=7]
+\item Kontraposition:\\
+$(A \Rightarrow B) \Leftrightarrow (\neg B \Rightarrow \neg A)$
+
+\item Implikation als Disjunktion:\\
+$(A \Rightarrow B) \Leftrightarrow (\neg A \vee B)$
+
+\item Transitivität der Implikation:\\
+$(A \Rightarrow B) \wedge (B \Rightarrow C) \Rightarrow (A \Rightarrow C)$
+
+\item Definition der Äquivalenz:\\
+$(A \Rightarrow B) \land (B \Rightarrow A) \Leftrightarrow (A \Leftrightarrow B)$
+\end{enumerate}
+
+% Gesetze für AND und OR
+\subsection*{Gesetze für $\wedge$ und $\vee$}
+
+\begin{enumerate}[label=\arabic*., start=11]
+\item Kommutativgesetze:\\
+$A \wedge B \Leftrightarrow B \wedge A$\\
+$A \vee B \Leftrightarrow B \vee A$
+
+\item Assoziativgesetze:\\
+$(A \wedge B) \wedge C \Leftrightarrow A \wedge (B \wedge C)$\\
+$(A \vee B) \vee C \Leftrightarrow A \vee (B \vee C)$
+
+\item Distributivgesetze:\\
+$A \wedge (B \vee C) \Leftrightarrow (A \wedge B) \vee (A \wedge C)$\\
+$A \vee (B \wedge C) \Leftrightarrow (A \vee B) \wedge (A \vee C)$
+
+\item Absorptionsgesetze:\\
+$A \vee (A \wedge B) \Leftrightarrow A$\\
+$A \wedge (A \vee B) \Leftrightarrow A$
+
+\item Idempotenzgesetze:\\
+$A \wedge A \Leftrightarrow A$\\
+$A \vee A \Leftrightarrow A$
+
+\item De Morgansche Gesetze:\\
+$\neg(A \wedge B) \Leftrightarrow \neg A \vee \neg B$\\
+$\neg(A \vee B) \Leftrightarrow \neg A \wedge \neg B$
+\end{enumerate}
+
+\end{multicols}
+
+\newpage
+% Aufgaben
+\section*{Umformen und vereinfachen von aussagelogischen Formeln}
+
+Ein logischer Ausdruck kann mit Hilfe der Gesetze der Aussagenlogik umgeformt werden. Ein typischer Anwendungsfall ist die Vereinfachung einer Formel, also die Entwicklung einer äquivalenten Formel mit einer minimalen Anzahl an Operatoren und Klammern. Ebenfalls kann mit einer Umformung für zwei gegeben logische Ausdrücke deren Äquivalenz nachgewiesen werden.
+
+\subsection*{Aufgabe 1: Umformung von Ausdrücken}
+Vereinfachen Sie die folgenden aussagenlogischen Ausdrücke mithilfe der Gesetze der Aussagenlogik. Geben Sie bei jedem Schritt an, welches Gesetz Sie anwenden.
+
+\begin{enumerate}[label=\alph*)]
+\item $A \wedge (A \vee B)$
+\item $\neg (A \wedge B) \vee \neg A$
+\item $\neg (\neg A \vee B) \wedge A$
+\end{enumerate}
+
+\subsection*{Aufgabe 2: Nachweis von Tautologien}
+Weisen Sie nach, dass die folgenden Formeln Tautologien sind. Nutzen Sie dazu die Gesetze der Aussagenlogik.
+
+\begin{enumerate}[label=\alph*)]
+\item $(A \Rightarrow B) \vee (B \Rightarrow A)$
+\item $(\neg A \Rightarrow B) \Rightarrow (A \vee B)$
+\item $\neg (A \wedge \neg B) \Rightarrow (A \Rightarrow B)$
+\end{enumerate}
+
+\subsection*{Aufgabe 3: Äquivalenz von Formeln}
+Beweisen Sie, dass die folgenden Formeln äquivalent sind. Begründen Sie jeden Umformungsschritt mit einem Gesetz der Aussagenlogik.
+
+\begin{enumerate}[label=\alph*)]
+\item $A \Rightarrow (B \Rightarrow C)$ und $(A \wedge B) \Rightarrow C$
+\item $\neg(A \wedge B) \vee C$ und $(A \Rightarrow C) \vee (B \Rightarrow C)$
+\end{enumerate}
+
+\subsection*{Aufgabe 4: Anwendung der De Morganschen Gesetze}
+Wenden Sie die De Morganschen Gesetze an, um die folgenden Ausdrücke so weit wie möglich zu vereinfachen.
+
+\begin{enumerate}[label=\alph*)]
+\item $ \neg (A \lor (A \land B))$
+\item $\neg (A \land (B \lor \neg A))$
+\item $\neg (\neg(A \lor (B \land C)) \lor \neg (A \land \neg B))$
+\end{enumerate}
+
+
+
+\end{document}
