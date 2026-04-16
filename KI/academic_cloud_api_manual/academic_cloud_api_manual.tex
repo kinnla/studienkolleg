@@ -1,0 +1,123 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage[ngerman]{datetime2}
+\usepackage[a4paper,total={16cm,25cm}]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage{caption}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue!60!black
+}
+
+\setlength{\parindent}{0pt}
+\setlist[itemize]{leftmargin=1.4em}
+
+\newcommand{\manualtitle}{Academic Cloud Registrierung und API-Key beantragen}
+
+\newcommand{\screenshot}[3]{%
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#2\linewidth,height=0.62\textheight,keepaspectratio]{#1}
+    \caption{#3}
+  \end{figure}
+}
+
+\begin{document}
+\hrule
+\begin{center}
+{\large\bf \manualtitle}\\[-0mm]
+Studienkolleg der TU Berlin\hfill Interne Kurzanleitung\\
+Informatik Oberkurs \hfill Stand: \today\\
+\end{center}
+\hrule
+
+\bigskip
+
+Diese Anleitung zeigt, wie Sie sich bei der Academic Cloud anmelden bzw.\ registrieren und danach einen API-Key für \emph{Chat AI} beantragen. Die Schritte basieren auf der offiziellen Academic-Cloud-Hilfe sowie der GWDG/KISSKI-Dokumentation.
+
+Die Academic Cloud ist eine gemeinsame digitale Plattform für Deutsche Hochschulen und Forschungseinrichtungen. Sie wird von der Gesellschaft für wissenschaftliche Datenverarbeitung mbH Göttingen (GWDG) betrieben. Über die Plattform erhalten Sie Zugang zu verschiedenen Diensten, unter anderem zu \emph{Chat AI} und zum dazugehörigen API-Zugang.
+
+\begin{tcolorbox}[title=Wichtig vorab,colback=yellow!6,colframe=yellow!45!black]
+\begin{itemize}
+\item Die Erstregistrierung passiert bei der ersten erfolgreichen Anmeldung über die eigene Hochschule.
+\item Die erste Anlage des Academic-Cloud-Kontos kann bis zu drei Minuten dauern.
+\item Falls Academic Cloud nach einer Hochschul-E-Mail fragt, verwenden Sie bitte Ihre offizielle Hochschul-Mailadresse und keinen Mail-Alias.
+\item Für das Buchungsformular soll dieselbe E-Mail-Adresse verwendet werden, die auch zum Academic-Cloud-Konto gehört.
+\item Den später erhaltenen API-Key niemals an andere weitergeben.
+\end{itemize}
+\end{tcolorbox}
+
+\section*{Schritt-für-Schritt-Anleitung}
+
+\subsection*{1. API-Key-Anfrage öffnen}
+Öffnen Sie den Einstieg über die Doku oder direkt die KISSKI-Seite für \emph{Chat AI}. Klicken Sie dort auf \emph{Book} bzw.\ \emph{Buchen}. Laut SAIA-Doku wird genau über dieses Formular der API-Key beantragt.
+
+\screenshot{01_chat_ai_book_button.png}{0.68}{Auf der Chat-AI-Seite den Button \glqq Book\grqq{} anklicken.}
+
+\subsection*{2. Anmeldung starten}
+Nach dem Klick auf \emph{Book} erscheint die Anmeldeseite des Service-Portals. Klicken Sie auf \emph{Bitte klicken Sie hier, um fortzufahren}.
+
+\screenshot{02_service_portal_continue.png}{0.58}{Weiterleitung zur Anmeldung im Service-Portal.}
+
+\subsection*{3. Bei Academic Cloud anmelden}
+Auf der Academic-Cloud-Anmeldeseite wählen Sie \emph{Föderierte Anmeldung}. Je nach Ansicht kann Academic Cloud vorher auch Ihre offizielle Hochschul-E-Mail-Adresse abfragen. Damit melden Sie sich mit dem TU-Login an; dabei wird Ihr Academic-Cloud-Konto beim ersten Mal automatisch angelegt.
+
+\screenshot{03_academic_cloud_federated_login.png}{0.58}{Auf der Academic-Cloud-Seite \glqq Föderierte Anmeldung\grqq{} wählen.}
+
+\subsection*{4. Einrichtung auswählen}
+Wählen Sie als Einrichtung \emph{Technische Universität Berlin} und klicken Sie auf \emph{Weiter}.
+
+\screenshot{04_select_tu_berlin.png}{0.58}{Die eigene Hochschule auswählen.}
+
+\subsection*{5. Mit dem TU-Account einloggen}
+Melden Sie sich mit Ihrem TU-Kontonamen und Ihrem Passwort an. Danach werden Sie zurück zur Academic Cloud bzw.\ zum Buchungsformular geleitet. Falls die erste Anmeldung etwas dauert, bitte kurz warten. Wenn nach dem ersten Login die Academic-Cloud-Hauptseite erscheint, öffnen Sie einmal die Dateiansicht bzw.\ das Wolkensymbol; damit ist die Erstanmeldung laut Hilfe vollständig abgeschlossen.
+
+\screenshot{05_tu_login.png}{0.5}{Anmeldung mit dem TU-Account.}
+
+Es dauert ca. zwei Minuten, bis der Account angelegt wird. Lassen Sie in dieser Zeit die Seite geöffnet. Nach erfolgreicher Registrierung wird eine entsprechende Nachricht angezeigt, und Sie erhalten eine Bestätigungs-Email an Ihre TU-Adresse.  
+
+\pagebreak
+
+\subsection*{6. Buchungsformular wie in den Screenshots ausfüllen}
+Füllen Sie das Formular so aus, wie es in den folgenden Screenshots gezeigt ist. Anmerkung: Sie heißen nicht Lisa Schulz.
+
+\screenshot{06_booking_contact_info.png}{0.9}{Erster Teil des Buchungsformulars mit den Kontaktdaten.}
+
+\screenshot{07_booking_organization_info.png}{0.9}{Zweiter Teil des Buchungsformulars mit Organisationsdaten.}
+
+\screenshot{08_booking_api_access.png}{0.9}{Im Formular den API-Zugriff auswählen und die Anforderung kurz beschreiben.}
+
+\screenshot{09_booking_submit.png}{0.9}{Zum Schluss die Bedingungen bestätigen und die Anfrage absenden.}
+
+\subsection*{7. Auf Rückmeldung warten}
+Nach dem Absenden wird Ihre Anfrage bearbeitet. Nach 1-3 Tagen erhalten Sie eine Email mit Ihrem persönlichen API-Key. Bitte bewahren Sie den Schlüssel sicher auf und teilen Sie ihn nicht mit anderen. Sie sind verantwortlich für alle Anfragen, die mit diesem Schlüssel an ChatAI gestellt werden.
+
+\section*{Wenn eine Fehlermeldung erscheint}
+\screenshot{10_registration_error.jpg}{0.55}{Bei Problemen mit der Registrierung rufen Sie mich.}
+
+\begin{tcolorbox}[title=Quellen,colback=gray!5,colframe=gray!50]
+\begin{itemize}
+\setlength{\itemsep}{\baselineskip}
+\item GWDG-SAIA-Dokumentation mit dem Abschnitt zum API-Request und dem Hinweis auf den \glqq Book\grqq-Button: \url{https://docs.hpc.gwdg.de/services/ai-services/saia/index.html#api-request}
+\item Academic-Cloud-Hilfe zur Registrierung und zur ersten Anmeldung über die Hochschule: \url{https://academiccloud.de/de/help/general_registration/}
+\item Allgemeine Academic-Cloud-Hilfe mit weiteren Informationen zum Zugang und Support: \url{https://academiccloud.de/de/help/}
+\item KISSKI-Seite zum Chat-AI-Service mit Einstieg in die Buchung des Dienstes: \url{https://kisski.gwdg.de/leistungen/2-02-llm-service/}
+\item Chat-AI-Weboberfläche der Academic Cloud: \url{https://chat-ai.academiccloud.de/}
+\end{itemize}
+\end{tcolorbox}
+
+\end{document}
