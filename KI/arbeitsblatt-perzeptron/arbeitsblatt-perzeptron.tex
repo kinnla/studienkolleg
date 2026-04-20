@@ -1,0 +1,188 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage{luacode}
+\usepackage{fontspec}
+\usepackage{emoji}
+\usepackage[ngerman]{babel}
+\usepackage[ngerman]{datetime2}
+\usepackage[a4paper, total={16cm, 25cm}]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\definecolor{codebg}{HTML}{F4F6F8}
+\definecolor{codecomment}{HTML}{6A737D}
+\definecolor{codekeyword}{HTML}{0550AE}
+\definecolor{codestring}{HTML}{0A7D5C}
+
+\lstdefinestyle{python}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    showstringspaces=false,
+    frame=single,
+    rulecolor=\color{codebg},
+    xleftmargin=6pt,
+    xrightmargin=6pt,
+    aboveskip=6pt,
+    belowskip=6pt,
+    breaklines=true,
+    numbers=none,
+}
+
+\begin{document}
+\hrule
+\begin{center}
+{\large\bf Das Perzeptron-Lernverfahren}\\[-0mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+Informatik, Oberkurs \hfill \DTMgermanmonthname{\month} \the\year\\[2mm]
+\end{center}
+\hrule
+\bigskip
+
+\noindent Ein \textbf{Perzeptron} (Rosenblatt, 1958) ist das einfachste künstliche Neuron, das aus Beispielen lernen kann. Es berechnet aus den Eingaben $x_1, x_2$ eine gewichtete Summe $z = w_0 + w_1 x_1 + w_2 x_2$ und gibt als Vorhersage das Vorzeichen von $z$ zurück. Das Gewicht $w_0$ fungiert dabei als \emph{Bias}. Während des Trainings werden die Gewichte bei jeder Fehlklassifikation angepasst, bis alle Trainingsbeispiele korrekt klassifiziert sind.
+
+\begin{tcolorbox}[title=Der Perzeptron-Lernalgorithmus (Pseudocode)]
+\textbf{Trainingsdaten:} Beispiele $(x_1^{(k)}, x_2^{(k)}, y^{(k)})$ für $k = 1, \ldots, m$ mit $y^{(k)} \in \{-1, +1\}$
+
+\medskip
+\textbf{Initialisierung:} $w_0 = 0$, $w_1 = 0$, $w_2 = 0$
+
+\medskip
+\textbf{Wiederhole} für jede \emph{Epoche}, bis keine Fehler mehr auftreten:
+\begin{quote}
+\textbf{Für jedes} Trainingsbeispiel $(x_1, x_2, y)$:
+\begin{quote}
+Berechne $z = w_0 + w_1 x_1 + w_2 x_2$\\
+\textbf{Falls} $y \cdot z \leq 0$ \quad (Fehlklassifikation):
+\begin{quote}
+$w_0 \leftarrow w_0 + y$\\
+$w_1 \leftarrow w_1 + y \cdot x_1$\\
+$w_2 \leftarrow w_2 + y \cdot x_2$
+\end{quote}
+\end{quote}
+\end{quote}
+
+\medskip
+\textbf{Ausgabe:} Gewichte $w_0, w_1, w_2$, die alle Trainingsbeispiele korrekt klassifizieren.
+\end{tcolorbox}
+
+\subsection*{Aufgabe 1: Algorithmus per Hand anwenden (OR-Funktion)}
+
+\noindent Trainieren Sie ein Perzeptron so, dass es die OR-Funktion lernt. Verwenden Sie die Codierung $\{-1, +1\}$.
+
+\medskip
+\noindent \textbf{a)} Stellen Sie zunächst die Trainingsdaten für die OR-Funktion als Tabelle auf.
+
+\medskip
+\noindent \textbf{b)} Führen Sie den Algorithmus per Hand durch. Tragen Sie in jeder Zeile die Nettoeingabe $z$ und die neuen Gewichte nach einem eventuellen Update ein. Notieren Sie bei jedem Update explizit, \emph{wie} die Gewichte angepasst werden.
+
+\medskip
+\noindent \textbf{Epoche 1:}
+
+\begin{center}
+\begin{tabular}{|>{\centering\arraybackslash}p{2.2cm}|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.5cm}|p{7cm}|}
+\hline
+$(x_1, x_2)$ & $y$ & $z$ & Update (falls nötig) und neue Gewichte \\
+\hline
+Start & -- & -- & $w_0 = 0, \; w_1 = 0, \; w_2 = 0$ \\
+\hline
+ & & & \\[8pt]
+\hline
+ & & & \\[8pt]
+\hline
+ & & & \\[8pt]
+\hline
+ & & & \\[8pt]
+\hline
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent \textbf{Epoche 2:}
+
+\begin{center}
+\begin{tabular}{|>{\centering\arraybackslash}p{2.2cm}|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.5cm}|p{7cm}|}
+\hline
+$(x_1, x_2)$ & $y$ & $z$ & Update (falls nötig) und neue Gewichte \\
+\hline
+ & & & \\[8pt]
+\hline
+ & & & \\[8pt]
+\hline
+ & & & \\[8pt]
+\hline
+ & & & \\[8pt]
+\hline
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent \textbf{c)} Führen Sie bei Bedarf weitere Epochen durch, bis keine Fehlklassifikation mehr auftritt. Notieren Sie die Endgewichte:
+
+\medskip
+$w_0 = \underline{\hspace{1.5cm}}, \quad w_1 = \underline{\hspace{1.5cm}}, \quad w_2 = \underline{\hspace{1.5cm}}$
+
+\newpage
+
+% ===========================================================
+%                      SEITE 2: GLOSSAR
+% ===========================================================
+
+\section*{Glossar: Perzeptron-Lernverfahren}
+
+\begin{center}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}p{10.8cm}|}
+\hline
+\textbf{Begriff} & \textbf{Erklärung} \\
+\hline
+Neuron & Grundeinheit eines künstlichen neuronalen Netzes. Berechnet eine gewichtete Summe der Eingaben und wendet darauf eine Aktivierungsfunktion an. \\
+\hline
+Trainingsdaten & Die Menge aller Beispiele $(x_1, x_2, y)$, mit denen das Neuron lernt. Jeder Datensatz besteht aus den Eingabewerten und dem zugehörigen Zielwert $y$. \\
+\hline
+Training & Der Vorgang, bei dem die Gewichte $w_0, w_1, w_2$ schrittweise angepasst werden, bis das Neuron alle Trainingsdaten korrekt klassifiziert. \\
+\hline
+Epoche & Ein vollständiger Durchlauf durch alle Trainingsbeispiele. Das Training besteht meist aus mehreren Epochen. \\
+\hline
+Gewicht (\emph{weight}) & Parameter $w_i$, der angibt, wie stark die Eingabe $x_i$ in die Nettoeingabe eingeht. Gewichte werden durch das Training angepasst. \\
+\hline
+Bias & Gewicht $w_0$ ohne zugehörige Eingabe. Verschiebt die Entscheidungsgrenze vom Ursprung weg. Ohne Bias ginge die Trenngerade zwangsläufig durch den Ursprung. \\
+\hline
+Nettoeingabe & Gewichtete Summe $z = w_0 + w_1 x_1 + w_2 x_2$. Wert \emph{vor} der Aktivierungsfunktion. \\
+\hline
+Aktivierungsfunktion & Funktion, die aus der Nettoeingabe $z$ die Ausgabe erzeugt. Beim Perzeptron: die Vorzeichenfunktion $\text{sign}(z)$ mit Werten $+1$ oder $-1$. \\
+\hline
+Ausgabe / Vorhersage & Das Vorzeichen von $z$. Die vom Neuron vorhergesagte Klasse ($+1$ oder $-1$). \\
+\hline
+Fehlklassifikation & Tritt auf, wenn $y \cdot z \leq 0$ gilt, also wenn Vorhersage und wahre Klasse nicht übereinstimmen (oder $z = 0$ ist). \\
+\hline
+\end{tabular}
+\end{center}
+
+\bigskip
+\subsection*{Zum Ausprobieren}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Perzeptron-Simulator (Universität Passau):} Visualisiert den Lernalgorithmus Schritt für Schritt. Gewichtsvektor und Trenngerade werden live dargestellt.\\
+\url{https://kex.fim.uni-passau.de/Perzeptron_Online/html/Perzeptron_Online.html}
+
+\item \textbf{TensorFlow Playground:} Interaktiver Simulator für mehrschichtige Netze. Zum Experimentieren mit nicht-linear separierbaren Datensätzen (z.\,B.\ XOR-artige Spiralen).\\
+\url{https://playground.tensorflow.org/}
+\end{itemize}
+
+\bigskip
+\noindent\footnotesize Lizenz: CC BY-SA 4.0 $\cdot$ Studienkolleg TU Berlin $\cdot$ Till Zoppke
+
+\end{document}
