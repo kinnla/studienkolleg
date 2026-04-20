@@ -65,12 +65,10 @@ Informatik, Oberkurs \hfill \DTMgermanmonthname{\month} \the\year\\[2mm]
 \begin{quote}
 \textbf{Für jedes} Trainingsbeispiel $(x_1, x_2, y)$:
 \begin{quote}
-Berechne $z = w_0 + w_1 x_1 + w_2 x_2$\\
-\textbf{Falls} $y \cdot z \leq 0$ \quad (Fehlklassifikation):
+Berechne $z = w_0 + w_1 x_1 + w_2 x_2$ und $\hat{y} = \text{sign}(z)$\\
+\textbf{Falls} $\hat{y} \neq y$ \quad (Fehlklassifikation):
 \begin{quote}
-$w_0 \leftarrow w_0 + y$\\
-$w_1 \leftarrow w_1 + y \cdot x_1$\\
-$w_2 \leftarrow w_2 + y \cdot x_2$
+$w_0 \leftarrow w_0 + y$; \quad $w_1 \leftarrow w_1 + y \cdot x_1$; \quad $w_2 \leftarrow w_2 + y \cdot x_2$
 \end{quote}
 \end{quote}
 \end{quote}
@@ -90,9 +88,8 @@ $w_2 \leftarrow w_2 + y \cdot x_2$
 \noindent \textbf{b)} Führen Sie den Algorithmus per Hand durch. Tragen Sie in jeder Zeile die Nettoeingabe $z$ und die neuen Gewichte nach einem eventuellen Update ein. Notieren Sie bei jedem Update explizit, \emph{wie} die Gewichte angepasst werden.
 
 \medskip
-\noindent \textbf{Epoche 1:}
-
-\begin{center}
+\noindent\begin{tabular}{@{}p{1.8cm}@{}l@{}}
+Epoche 1 &
 \begin{tabular}{|>{\centering\arraybackslash}p{2.2cm}|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.5cm}|p{7cm}|}
 \hline
 $(x_1, x_2)$ & $y$ & $z$ & Update (falls nötig) und neue Gewichte \\
@@ -108,12 +105,11 @@ Start & -- & -- & $w_0 = 0, \; w_1 = 0, \; w_2 = 0$ \\
  & & & \\[8pt]
 \hline
 \end{tabular}
-\end{center}
+\end{tabular}
 
 \medskip
-\noindent \textbf{Epoche 2:}
-
-\begin{center}
+\noindent\begin{tabular}{@{}p{1.8cm}@{}l@{}}
+Epoche 2 &
 \begin{tabular}{|>{\centering\arraybackslash}p{2.2cm}|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.5cm}|p{7cm}|}
 \hline
 $(x_1, x_2)$ & $y$ & $z$ & Update (falls nötig) und neue Gewichte \\
@@ -127,13 +123,7 @@ $(x_1, x_2)$ & $y$ & $z$ & Update (falls nötig) und neue Gewichte \\
  & & & \\[8pt]
 \hline
 \end{tabular}
-\end{center}
-
-\medskip
-\noindent \textbf{c)} Führen Sie bei Bedarf weitere Epochen durch, bis keine Fehlklassifikation mehr auftritt. Notieren Sie die Endgewichte:
-
-\medskip
-$w_0 = \underline{\hspace{1.5cm}}, \quad w_1 = \underline{\hspace{1.5cm}}, \quad w_2 = \underline{\hspace{1.5cm}}$
+\end{tabular}
 
 \newpage
 
@@ -148,25 +138,29 @@ $w_0 = \underline{\hspace{1.5cm}}, \quad w_1 = \underline{\hspace{1.5cm}}, \quad
 \hline
 \textbf{Begriff} & \textbf{Erklärung} \\
 \hline
-Neuron & Grundeinheit eines künstlichen neuronalen Netzes. Berechnet eine gewichtete Summe der Eingaben und wendet darauf eine Aktivierungsfunktion an. \\
-\hline
-Trainingsdaten & Die Menge aller Beispiele $(x_1, x_2, y)$, mit denen das Neuron lernt. Jeder Datensatz besteht aus den Eingabewerten und dem zugehörigen Zielwert $y$. \\
-\hline
-Training & Der Vorgang, bei dem die Gewichte $w_0, w_1, w_2$ schrittweise angepasst werden, bis das Neuron alle Trainingsdaten korrekt klassifiziert. \\
-\hline
-Epoche & Ein vollständiger Durchlauf durch alle Trainingsbeispiele. Das Training besteht meist aus mehreren Epochen. \\
-\hline
-Gewicht (\emph{weight}) & Parameter $w_i$, der angibt, wie stark die Eingabe $x_i$ in die Nettoeingabe eingeht. Gewichte werden durch das Training angepasst. \\
+Aktivierungsfunktion & Funktion, die aus der Nettoeingabe $z$ die Ausgabe erzeugt. Beim Perzeptron: die Vorzeichenfunktion $\text{sign}(z)$ mit Werten $+1$ oder $-1$. \\
 \hline
 Bias & Gewicht $w_0$ ohne zugehörige Eingabe. Verschiebt die Entscheidungsgrenze vom Ursprung weg. Ohne Bias ginge die Trenngerade zwangsläufig durch den Ursprung. \\
 \hline
+Epoche & Ein vollständiger Durchlauf durch alle Trainingsbeispiele. Das Training besteht meist aus mehreren Epochen. \\
+\hline
+Fehlklassifikation & Tritt auf, wenn $\hat{y} \neq y$, also wenn Vorhersage und wahre Klasse nicht übereinstimmen. \\
+\hline
+Gewicht (\emph{weight}) & Parameter $w_i$, der angibt, wie stark die Eingabe $x_i$ in die Nettoeingabe eingeht. Gewichte werden durch das Training angepasst. \\
+\hline
+Klassifikationsproblem & Aufgabe, Eingaben einer von mehreren vorgegebenen Klassen zuzuordnen. Bei einem \emph{binären} Klassifikationsproblem gibt es genau zwei Klassen, hier codiert als $+1$ und $-1$. Das Perzeptron löst ausschließlich binäre Klassifikationsprobleme. \\
+\hline
 Nettoeingabe & Gewichtete Summe $z = w_0 + w_1 x_1 + w_2 x_2$. Wert \emph{vor} der Aktivierungsfunktion. \\
 \hline
-Aktivierungsfunktion & Funktion, die aus der Nettoeingabe $z$ die Ausgabe erzeugt. Beim Perzeptron: die Vorzeichenfunktion $\text{sign}(z)$ mit Werten $+1$ oder $-1$. \\
+Neuron & Grundeinheit eines künstlichen neuronalen Netzes. Berechnet eine gewichtete Summe der Eingaben und wendet darauf eine Aktivierungsfunktion an. \\
 \hline
-Ausgabe / Vorhersage & Das Vorzeichen von $z$. Die vom Neuron vorhergesagte Klasse ($+1$ oder $-1$). \\
+Training & Der Vorgang, bei dem die Gewichte $w_0, w_1, w_2$ schrittweise angepasst werden, bis das Neuron alle Trainingsdaten korrekt klassifiziert. \\
 \hline
-Fehlklassifikation & Tritt auf, wenn $y \cdot z \leq 0$ gilt, also wenn Vorhersage und wahre Klasse nicht übereinstimmen (oder $z = 0$ ist). \\
+Trainingsdaten & Die Menge aller Beispiele $(x_1, x_2, y)$, mit denen das Neuron lernt. Jeder Datensatz besteht aus den Eingabewerten und dem zugehörigen Zielwert $y$. \\
+\hline
+Vorhersage & Ergebnis der Aktivierungsfunktion: $\hat{y} = \text{sign}(z) \in \{-1, +1\}$. Der Hut über $y$ kennzeichnet den vorhergesagten Wert im Unterschied zum wahren Zielwert $y$. \\
+\hline
+Überwachtes Lernen & Lernverfahren, bei dem jedes Trainingsbeispiel mit einem bekannten Zielwert $y$ versehen ist. Das Modell lernt, indem es seine Vorhersagen $\hat{y}$ mit den wahren Werten vergleicht und bei Fehlern die Gewichte anpasst. Das Perzeptron ist ein klassisches Beispiel für überwachtes Lernen. \\
 \hline
 \end{tabular}
 \end{center}
