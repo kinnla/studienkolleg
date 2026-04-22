@@ -1,0 +1,160 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[ngerman]{datetime2}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% Hellere Farben für DIKW-Pyramide
+\definecolor{dikw1}{RGB}{200,220,255} % Daten - hellblau
+\definecolor{dikw2}{RGB}{180,210,255} % Information
+\definecolor{dikw3}{RGB}{160,200,255} % Wissen
+\definecolor{dikw4}{RGB}{140,190,255} % Weisheit
+
+\title{Einführung in die Kodierung}
+\subtitle{Gruppenarbeit}
+\author{}
+\date{\DTMgermanmonthname{\month} \the\year}
+
+\begin{document}
+
+\begin{frame}
+\frametitle{Kodierung und Darstellung von Informationen}
+
+\textbf{Kodierung:} Umwandlung von Information in eine standardisierte Form zur Speicherung und Verarbeitung
+
+\textbf{Daten vs. Information:}
+\begin{itemize}
+    \item Daten = rohe Zeichen ohne Kontext (z.B. \texttt{01001000})
+    \item Information = Daten mit Bedeutung (z.B. der Buchstabe 'H')
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{Was kann kodiert werden?} Alles, was Menschen wahrnehmen:
+\begin{itemize}
+    \item Bilder (JPEG, PNG), Programme (EXE, PY), Audio (MP3), Video (MP4), Text (TXT, PDF), ...
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{Abstraktionsebenen der Kodierung:}
+\begin{enumerate}
+    \item Physikalisch: Spannung, Magnetisierung, Licht (Transistoren, Festplatten, CDs)
+    \item Binär: 0 und 1 (logische Ebene)
+    \item Datei: Strukturierte Formate mit Bedeutung (JPEG, MP3, TXT, ...)
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Wissenspyramide (DIKW)}
+
+\begin{tikzpicture}[font=\sffamily,scale=0.8,transform shape]
+  % Breiten (unten nach oben)
+  \def\wA{10.0}
+  \def\wB{8.0}
+  \def\wC{6.0}
+  \def\wD{4.0}
+  \def\h{1.4}
+  \def\xshift{-2.0}  % Verschiebung nach links
+  
+  % Ebene 1: Daten
+  \fill[dikw1,draw=black!50,thick,rounded corners=2pt] 
+    (\xshift-\wA/2,0) rectangle (\xshift+\wA/2,\h)
+    node[midway,align=center,text=black]{\large \textbf{Daten}\\[-1mm]\small \emph{data}};
+  \node[right,text width=7cm,align=left,text=black] at (\xshift+\wA/2+0.3,\h/2) 
+    {\normalsize Rohwerte ohne Bedeutung};
+  
+  % Ebene 2: Information
+  \fill[dikw2,draw=black!50,thick,rounded corners=2pt] 
+    (\xshift-\wB/2,\h+0.2) rectangle (\xshift+\wB/2,2*\h+0.2)
+    node[midway,align=center,text=black]{\large \textbf{Information}\\[-1mm]\small \emph{information}};
+  \node[right,text width=7cm,align=left,text=black] at (\xshift+\wB/2+0.3,1.5*\h+0.2) 
+    {\normalsize Daten + Kontext/Struktur};
+  
+  % Ebene 3: Wissen
+  \fill[dikw3,draw=black!50,thick,rounded corners=2pt] 
+    (\xshift-\wC/2,2*\h+0.4) rectangle (\xshift+\wC/2,3*\h+0.4)
+    node[midway,align=center,text=black]{\large \textbf{Wissen}\\[-1mm]\small \emph{knowledge}};
+  \node[right,text width=7cm,align=left,text=black] at (\xshift+\wC/2+0.3,2.5*\h+0.4) 
+    {\normalsize vernetztes, anwendbares Verstehen};
+  
+  % Ebene 4: Weisheit
+  \fill[dikw4,draw=black!50,thick,rounded corners=2pt] 
+    (\xshift-\wD/2,3*\h+0.6) rectangle (\xshift+\wD/2,4*\h+0.6)
+    node[midway,align=center,text=black]{\large \textbf{Weisheit}\\[-1mm]\small \emph{wisdom}};
+  \node[right,text width=7cm,align=left,text=black] at (\xshift+\wD/2+0.3,3.5*\h+0.6) 
+    {\normalsize reflektierte, wertgeleitete Anwendung};
+\end{tikzpicture}
+
+\vspace{0.5cm}
+\small
+Computer arbeiten mit Daten. Kodierung wandelt Information in eine Form um, die Computer verarbeiten können.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Aufgabe: Entwicklung einer eigenen Kodierung}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+    \textbf{Linke Hälfte: Zahlen}
+    
+    Beispiel: \textbf{42}
+    
+    Wie können Zahlen als 0 und 1 dargestellt werden?
+\end{column}
+
+\begin{column}{0.48\textwidth}
+    \textbf{Rechte Hälfte: Wörter}
+    
+    Beispiel: \textbf{Berlin}
+    
+    Wie kann ein Wort als 0 und 1 dargestellt werden?
+\end{column}
+\end{columns}
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+    \item \textbf{Entwickeln Sie eine Kodierung (2er Gruppen):} Überlegen Sie sich anhand des Beispiels, wie sich Zahlen bzw. Wörter in Binärcode darstellen lassen. Der Rückweg (Dekodierung) soll ebenfalls eindeutig sein. Wenden Sie Ihr Verfahren auf ein selbstgewähltes Beispiel an. \textbf{Zeit: 7 Minuten}
+    
+    \item \textbf{Vorstellen in der Bankreihe:} Stellen Sie Ihr Kodierungssystem der anderen Gruppe in der gleichen Bankreihe vor. Testen Sie, ob Ihre Kommilitonen Ihre Kodierung verstehen und anwenden können. \textbf{Zeit: 5 Minuten}
+    
+    \item \textbf{Präsentation im Plenum:} Einige Gruppen werden ihr System im Kurs vorstellen.\\ \textbf{Zeit: 3 Minuten pro Gruppe} 
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Arbeitsplan}
+
+\begin{table}
+\centering
+\begin{tabular}{l|p{9cm}}
+\textbf{Datum} & \textbf{Thema} \\
+\hline
+25.03.2026 & Einführung Kodierung: Zahlen / Text \\
+\hline
+01.04.2026 & Osterferien \\
+\hline
+08.04.2026 & Osterferien \\
+\hline
+15.04.2026 & Binärzahlen: Umwandlung von und zum Dezimalsystem, Addition \\
+\hline
+22.04.2026 & Zweierkomplement \\
+\hline
+29.04.2026 & Kodierung: Hexadezimalzahlen, ASCII \\
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\end{document}
