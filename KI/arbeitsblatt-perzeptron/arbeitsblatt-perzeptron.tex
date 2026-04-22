@@ -61,7 +61,7 @@ Informatik, Oberkurs \hfill \DTMgermanmonthname{\month} \the\year\\[2mm]
 \textbf{Initialisierung:} $w_0 = 0$, $w_1 = 0$, $w_2 = 0$
 
 \medskip
-\textbf{Wiederhole} für jede \emph{Epoche}, bis keine Fehler mehr auftreten:
+\textbf{Wiederhole}, bis eine Epoche komplett fehlerfrei durchlaufen wird:
 \begin{quote}
 \textbf{Für jedes} Trainingsbeispiel $(x_1, x_2, y)$:
 \begin{quote}
@@ -79,7 +79,7 @@ $w_0 \leftarrow w_0 + y$; \quad $w_1 \leftarrow w_1 + y \cdot x_1$; \quad $w_2 \
 
 \subsection*{Aufgabe 1: Algorithmus per Hand anwenden (OR-Funktion)}
 
-\noindent Trainieren Sie ein Perzeptron so, dass es die OR-Funktion lernt. Verwenden Sie die Codierung $\{-1, +1\}$.
+\noindent Trainieren Sie ein Perzeptron so, dass es die OR-Funktion lernt. Verwenden Sie die Kodierung $\{-1 = \text{falsch}, +1 = \text{wahr}\}$.
 
 \medskip
 \noindent \textbf{a)} Stellen Sie zunächst die Trainingsdaten für die OR-Funktion als Tabelle auf.
@@ -88,39 +88,39 @@ $w_0 \leftarrow w_0 + y$; \quad $w_1 \leftarrow w_1 + y \cdot x_1$; \quad $w_2 \
 \noindent \textbf{b)} Führen Sie den Algorithmus per Hand durch. Tragen Sie in jeder Zeile die Nettoeingabe $z$ und die neuen Gewichte nach einem eventuellen Update ein. Notieren Sie bei jedem Update explizit, \emph{wie} die Gewichte angepasst werden.
 
 \medskip
-\noindent\begin{tabular}{@{}p{1.8cm}@{}l@{}}
-Epoche 1 &
-\begin{tabular}{|>{\centering\arraybackslash}p{2.2cm}|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.5cm}|p{7cm}|}
+\noindent\begin{tabular}{@{}p{.8cm}@{}l@{}}
+\hspace{-0.5cm}\tiny{Epoche 1} &
+\begin{tabular}{|>{\centering\arraybackslash}p{1.5cm}|>{\centering\arraybackslash}p{0.8cm}|p{6cm}|>{\centering\arraybackslash}p{0.8cm}|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{2.4cm}|}
 \hline
-$(x_1, x_2)$ & $y$ & $z$ & Update (falls nötig) und neue Gewichte \\
+$(x_1, x_2)$ & $y$ & Berechnung z & $\hat y$ & \small{Fehler?} & \small{neue Gewichte} \\
 \hline
-Start & -- & -- & $w_0 = 0, \; w_1 = 0, \; w_2 = 0$ \\
+Start & -- & -- & -- & -- & $(0, 0, 0)$ \\
 \hline
- & & & \\[8pt]
+\textcolor{blue}{$(-1,-1)$} & \textcolor{blue}{$-1$} & \textcolor{blue}{$z = 0 + 0\cdot(-1) + 0\cdot(-1) = 0$} & \textcolor{blue}{$+1$} & \textcolor{blue}{ja} & \textcolor{blue}{$(-1,1,1)$} \\[8pt]
 \hline
- & & & \\[8pt]
+\textcolor{blue}{$(-1,+1)$} & \textcolor{blue}{$+1$} & & & & \\[8pt]
 \hline
- & & & \\[8pt]
+\textcolor{blue}{$(+1,-1)$} & \textcolor{blue}{$+1$} & & & & \\[8pt]
 \hline
- & & & \\[8pt]
+\textcolor{blue}{$(+1,+1)$} & \textcolor{blue}{$+1$} & & & & \\[8pt]
 \hline
 \end{tabular}
 \end{tabular}
 
 \medskip
-\noindent\begin{tabular}{@{}p{1.8cm}@{}l@{}}
-Epoche 2 &
-\begin{tabular}{|>{\centering\arraybackslash}p{2.2cm}|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.5cm}|p{7cm}|}
+\noindent\begin{tabular}{@{}p{.8cm}@{}l@{}}
+\hspace{-0.5cm}\tiny{Epoche 2} &
+\begin{tabular}{|>{\centering\arraybackslash}p{1.5cm}|>{\centering\arraybackslash}p{0.8cm}|p{6cm}|>{\centering\arraybackslash}p{0.8cm}|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{2.4cm}|}
 \hline
-$(x_1, x_2)$ & $y$ & $z$ & Update (falls nötig) und neue Gewichte \\
+$(x_1, x_2)$ & $y$ & Berechnung z & $\hat y$ & \small{Fehler?} & \small{neue Gewichte} \\
 \hline
- & & & \\[8pt]
+ & & & & & \\[8pt]
 \hline
- & & & \\[8pt]
+ & & & & & \\[8pt]
 \hline
- & & & \\[8pt]
+ & & & & & \\[8pt]
 \hline
- & & & \\[8pt]
+ & & & & & \\[8pt]
 \hline
 \end{tabular}
 \end{tabular}
@@ -148,7 +148,7 @@ Fehlklassifikation & Tritt auf, wenn $\hat{y} \neq y$, also wenn Vorhersage und 
 \hline
 Gewicht (\emph{weight}) & Parameter $w_i$, der angibt, wie stark die Eingabe $x_i$ in die Nettoeingabe eingeht. Gewichte werden durch das Training angepasst. \\
 \hline
-Klassifikationsproblem & Aufgabe, Eingaben einer von mehreren vorgegebenen Klassen zuzuordnen. Bei einem \emph{binären} Klassifikationsproblem gibt es genau zwei Klassen, hier codiert als $+1$ und $-1$. Das Perzeptron löst ausschließlich binäre Klassifikationsprobleme. \\
+Klassifikationsproblem & Aufgabe, Eingaben einer von mehreren vorgegebenen Klassen zuzuordnen. Bei einem \emph{binären} Klassifikationsproblem gibt es genau zwei Klassen, hier kodiert als $+1$ und $-1$. Das Perzeptron löst ausschließlich binäre Klassifikationsprobleme. \\
 \hline
 Nettoeingabe & Gewichtete Summe $z = w_0 + w_1 x_1 + w_2 x_2$. Wert \emph{vor} der Aktivierungsfunktion. \\
 \hline
