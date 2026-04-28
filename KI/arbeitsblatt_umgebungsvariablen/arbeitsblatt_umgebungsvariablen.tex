@@ -1,0 +1,199 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper, total={16cm, 25cm}]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Listings-Konfiguration
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{filebg}{RGB}{252,248,230}
+\definecolor{codekey}{RGB}{0,0,180}
+\definecolor{codecom}{RGB}{90,120,90}
+\definecolor{codestr}{RGB}{160,60,60}
+
+\lstdefinestyle{bash}{
+    language=bash,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    keywordstyle=\color{codekey}\bfseries,
+    commentstyle=\color{codecom}\itshape,
+    stringstyle=\color{codestr},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    framesep=4pt,
+    xleftmargin=4pt,
+    morekeywords={export,echo,env,printenv,source,unset,cat,nano,vim},
+    captionpos=t,
+    abovecaptionskip=2pt,
+    belowcaptionskip=2pt
+}
+
+\lstdefinestyle{bashfile}{
+    language=bash,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{filebg},
+    keywordstyle=\color{codekey}\bfseries,
+    commentstyle=\color{codecom}\itshape,
+    stringstyle=\color{codestr},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    framesep=4pt,
+    xleftmargin=4pt,
+    morekeywords={export},
+    captionpos=t,
+    abovecaptionskip=2pt,
+    belowcaptionskip=2pt
+}
+
+\lstdefinestyle{python}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    keywordstyle=\color{codekey}\bfseries,
+    commentstyle=\color{codecom}\itshape,
+    stringstyle=\color{codestr},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    framesep=4pt,
+    xleftmargin=4pt
+}
+
+\begin{document}
+\hrule
+\begin{center}
+{\large\bf Umgebungsvariablen unter Linux --- API-Keys sicher verwalten}\\[-0mm]
+Studienkolleg der TU Berlin\hfill Till Zoppke\\
+Informatik / T-Kurs \hfill \today\\[2mm]
+\end{center}
+\hrule
+\bigskip
+
+% Einleitung
+\noindent Aus Python kennen Sie Variablen: Sie speichern Werte unter einem Namen innerhalb eines Programms. Sobald das Programm endet, sind die Variablen weg. Das Betriebssystem selbst kennt aber auch Variablen --- sogenannte \emph{Umgebungsvariablen} (\emph{environment variables}). Diese leben außerhalb Ihres Python-Skripts und können von jedem Programm gelesen werden, das Sie starten. In diesem Arbeitsblatt lernen Sie, Umgebungsvariablen in der \texttt{bash} zu setzen, dauerhaft zu speichern und aus Python heraus zu verwenden --- konkret am Beispiel eines API-Keys für \textbf{Chat-AI} der GWDG Academic Cloud.
+
+\begin{tcolorbox}[title=Definition: Umgebungsvariable]
+Eine \textbf{Umgebungsvariable} ist ein Name-Wert-Paar, das die Shell (bei uns \texttt{bash}) und alle von ihr gestarteten Programme lesen können. Konvention: Namen werden \textsc{GROSSGESCHRIEBEN}, Wörter mit Unterstrich getrennt, z.\,B. \texttt{HOME}, \texttt{CHATAI\_API\_KEY}.
+\end{tcolorbox}
+\bigskip
+
+\section*{1 Variablen in der Shell setzen und anzeigen}
+
+\subsection*{Temporär setzen (nur für die aktuelle Shell-Sitzung)}
+
+\begin{lstlisting}[style=bash,caption={Terminal}]
+# Variable setzen: export macht sie auch fuer Unterprozesse sichtbar
+export MEIN_NAME="Alex"
+
+# Wert anzeigen: das $-Zeichen ersetzt den Namen durch den Wert
+echo $MEIN_NAME
+
+# Alle Umgebungsvariablen auflisten
+env
+\end{lstlisting}
+
+\subsection*{Bereits vorhandene Systemvariablen}
+
+\begin{center}
+\begin{tabular}{|l|p{11cm}|}
+\hline
+\textbf{Variable} & \textbf{Bedeutung} \\
+\hline
+\texttt{HOME}  & Pfad zum Home-Verzeichnis, z.\,B. \texttt{/home/tu-berlin.de/alex} \\
+\texttt{USER}  & Benutzername des angemeldeten Kontos \\
+\texttt{PATH}  & Liste von Verzeichnissen, in denen die Shell nach ausführbaren Programmen sucht \\
+\texttt{SHELL} & Pfad zur aktuellen Login-Shell, z.\,B. \texttt{/bin/bash} \\
+\texttt{LANG}  & Spracheinstellung, z.\,B. \texttt{de\_DE.UTF-8} \\
+\texttt{PWD}   & Aktuelles Arbeitsverzeichnis \\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{2 Variablen persistent machen --- Anwendungsfall Chat-AI}
+
+Beim Schließen des Terminals verschwindet eine mit \texttt{export} gesetzte Variable. Damit sie bei jedem neuen Terminal automatisch wieder geladen wird, trägt man sie in die Konfigurationsdatei \texttt{\textasciitilde/.bashrc} ein. Diese wird bei jedem Start einer interaktiven \texttt{bash} ausgeführt.
+
+\smallskip
+Wir arbeiten mit \textbf{Chat-AI} der \emph{GWDG Academic Cloud}. Den persönlichen API-Key haben Sie per E-Mail erhalten. \textbf{Dieser Key gehört nicht in den Quellcode}, er könnte sonst durch Weitergabe der Datei kompromittiert werden. Stattdessen legen Sie ihn als Umgebungsvariable ab.
+
+\smallskip
+\noindent \textbf{Schritt 1:} Konfigurationsdatei im Terminal mit \texttt{vim} öffnen.
+
+\begin{lstlisting}[style=bash]
+vim ~/.bashrc
+\end{lstlisting}
+
+\noindent \textbf{Schritt 2:} In \texttt{vim} mit \texttt{i} in den Einfügemodus wechseln und am Dateiende folgende Zeile ergänzen:
+
+\begin{lstlisting}[style=bashfile]
+export CHATAI_API_KEY="sk-hier-steht-ihr-echter-schluessel"
+\end{lstlisting}
+
+\noindent \textbf{Schritt 3:} Mit \texttt{Esc} den Einfügemodus verlassen, dann \texttt{:wq} eingeben und \texttt{Enter} drücken --- damit wird gespeichert (\emph{write}) und \texttt{vim} beendet (\emph{quit}).
+
+\smallskip
+\noindent \textbf{Schritt 4:} Datei neu einlesen und prüfen, ob der Wert gesetzt ist.
+
+\begin{lstlisting}[style=bash]
+source ~/.bashrc
+echo $CHATAI_API_KEY
+\end{lstlisting}
+
+\section*{3 Key aus Python heraus verwenden}
+
+Das Python-Skript liest den Key aus der Umgebung und schickt einen HTTP-Request an den Chat-AI-Endpoint. Der Key steht \emph{nicht} im Quelltext.
+
+\begin{lstlisting}[style=python]
+import json
+import os
+from urllib.request import Request, urlopen
+
+api_key = os.environ.get("CHATAI_API_KEY")
+if api_key is None:
+    raise RuntimeError("CHATAI_API_KEY ist nicht gesetzt.")
+
+url = "https://chat-ai.academiccloud.de/v1/chat/completions"
+headers = {
+    "Authorization": f"Bearer {api_key}",
+    "Content-Type": "application/json",
+}
+payload = {
+    "model": "meta-llama-3.1-8b-instruct",
+    "messages": [
+        {
+            "role": "user",
+            "content": "Hallo! Bitte stelle dich kurz vor.",
+        }
+    ],
+}
+
+request = Request(
+    url,
+    data=json.dumps(payload).encode("utf-8"),
+    headers=headers,
+    method="POST",
+)
+
+with urlopen(request) as response:
+    data = json.load(response)
+
+print(data["choices"][0]["message"]["content"])
+\end{lstlisting}
+
+
+\end{document}
