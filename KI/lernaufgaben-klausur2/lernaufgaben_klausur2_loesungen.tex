@@ -1,0 +1,74 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+%
+% Lösungsversion: rendert lernaufgaben_klausur2_body.tex mit sichtbaren Lösungen.
+% Aufgaben und Lösungen leben ausschließlich in lernaufgaben_klausur2_body.tex --
+% diese Datei nur bei Layoutänderungen der Lösungsboxen bearbeiten.
+\documentclass[ngerman,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper, total={16cm, 26cm}]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{pifont}
+\usepackage{tikz}
+
+% Listings-Konfiguration (identisch mit Aufgabendatei)
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codekey}{RGB}{0,0,180}
+\definecolor{codecom}{RGB}{90,120,90}
+\definecolor{codestr}{RGB}{160,60,60}
+
+\lstdefinestyle{python}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    keywordstyle=\color{codekey}\bfseries,
+    commentstyle=\color{codecom}\itshape,
+    stringstyle=\color{codestr},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    framesep=4pt,
+    xleftmargin=4pt,
+    tabsize=2,
+    escapeinside={(*@}{@*)}
+}
+
+\newcommand{\antwortmarker}{\llap{\hspace*{-1.2cm}\ding{43}\hspace*{0.3cm}}}
+\newcommand{\gewichtsbox}{\fbox{\rule{0pt}{2.4ex}\hspace{1.2cm}}}
+\newcommand{\pseudocomment}[1]{\textit{\# #1}}
+
+% Schalter: aktiviert \ifdefined\zeigloesungen-Blöcke im Body
+\newcommand{\zeigloesungen}{}
+
+% Farben für Lösungsboxen und inline-Lösungen
+\definecolor{loesungbg}{RGB}{230,245,230}
+\definecolor{loesungframe}{RGB}{60,140,60}
+\definecolor{loesgruen}{RGB}{0,130,0}
+
+% \loesung{...} wird als grüne tcolorbox gerendert
+\newcommand{\loesung}[1]{%
+  \begin{tcolorbox}[
+    colback=loesungbg,
+    colframe=loesungframe,
+    fonttitle=\bfseries\small,
+    title=L\"osung,
+    left=4pt, right=4pt, top=2pt, bottom=2pt,
+    before skip=4pt, after skip=4pt
+  ]
+  #1
+  \end{tcolorbox}%
+}
+
+\begin{document}
+\input{lernaufgaben_klausur2_body}
+\end{document}

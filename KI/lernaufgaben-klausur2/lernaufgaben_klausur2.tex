@@ -1,0 +1,56 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[ngerman,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper, total={16cm, 26cm}]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{pifont}
+\usepackage{tikz}
+
+% Listings-Konfiguration
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codekey}{RGB}{0,0,180}
+\definecolor{codecom}{RGB}{90,120,90}
+\definecolor{codestr}{RGB}{160,60,60}
+
+\lstdefinestyle{python}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    keywordstyle=\color{codekey}\bfseries,
+    commentstyle=\color{codecom}\itshape,
+    stringstyle=\color{codestr},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    framesep=4pt,
+    xleftmargin=4pt,
+    tabsize=2,
+    escapeinside={(*@}{@*)}
+}
+
+\newcommand{\antwortmarker}{\llap{\hspace*{-1.2cm}\ding{43}\hspace*{0.3cm}}}
+\newcommand{\gewichtsbox}{\fbox{\rule{0pt}{2.4ex}\hspace{1.2cm}}}
+\newcommand{\pseudocomment}[1]{\textit{\# #1}}
+
+% loesgruen: in der Aufgabenversion identisch mit Schwarz (kein visueller Effekt).
+% In der Lösungsversion wird es zu einem sichtbaren Grün umdefiniert.
+\definecolor{loesgruen}{RGB}{0,0,0}
+
+% Lösungen unsichtbar -- \loesung{...} produziert keinen Output.
+% Lösungsversion: lernaufgaben_klausur2_loesungen.tex
+\newcommand{\loesung}[1]{}
+
+\begin{document}
+\input{lernaufgaben_klausur2_body}
+\end{document}
