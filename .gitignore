@@ -12,5 +12,8 @@
 !Betriebssysteme/betriebssysteme-folien/TU_Logo_lang_RGB_red.pdf
 !Betriebssysteme/betriebssysteme-folien/TU_Logo_kurz_RGB_red.pdf
 
+# Python
+__pycache__
+
 # clutter
 .DS_Store
