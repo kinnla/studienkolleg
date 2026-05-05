@@ -65,7 +65,7 @@ jobs:
           mkdir -p compiled-pdfs
 
           echo "Building all TeX files so the ZIP archive always contains the full PDF set."
-          find . -type f -name '*.tex' | sort > /tmp/changed-tex-files.txt
+          find . -type f -name '*.tex' ! -name '_*' | sort > /tmp/changed-tex-files.txt
 
           while IFS= read -r tex_file; do
             [ -n "$tex_file" ] || continue
