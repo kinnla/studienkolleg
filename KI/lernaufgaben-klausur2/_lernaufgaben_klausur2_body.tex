@@ -45,17 +45,13 @@ abzulegen, statt ihn direkt im Programmcode zu schreiben?
 \begin{lstlisting}[style=python]
 >>> staedte = {"Berlin": "im Sommer", "Hamburg": "schoen"}
 >>> staedte["Hamburg"]
-(*@\antwortmarker@*)
+(*@\ifdefined\zeigloesungen\textcolor{loesgruen}{'schoen'}\else\antwortmarker\fi@*)
 >>> "Muenchen" in staedte
-(*@\antwortmarker@*)
+(*@\ifdefined\zeigloesungen\textcolor{loesgruen}{False}\else\antwortmarker\fi@*)
 >>> staedte["Muenchen"] = "auch schoen"
 >>> len(staedte)
-(*@\antwortmarker@*)
+(*@\ifdefined\zeigloesungen\textcolor{loesgruen}{3}\else\antwortmarker\fi@*)
 \end{lstlisting}
-
-\loesung{
-  \texttt{'schoen'} \quad / \quad \texttt{False} \quad / \quad \texttt{3}
-}
 
 \medskip
 \noindent \textbf{b)} Bearbeiten Sie die folgenden Fragen zum Dictionary \texttt{tiere} und geben Sie den jeweiligen Python-Code an.
@@ -78,50 +74,20 @@ tiere = {
 \end{lstlisting}
 
 \begin{enumerate}[label=\alph*)]
-\item Wie erhält man die Tierart von Flipper?
-\ifdefined\zeigloesungen
-\begin{tcolorbox}[colback=loesungbg,colframe=loesungframe,fonttitle=\bfseries\small,title=L{\"o}sung,left=4pt,right=4pt,top=2pt,bottom=2pt,before skip=4pt,after skip=4pt,]
-\begin{lstlisting}[style=python]
-tiere["Flipper"]["tierart"]
-\end{lstlisting}
-\end{tcolorbox}
-\fi
+\item Wie erhält man die Tierart von Flipper?\\
+\ifdefined\zeigloesungen\texttt{\textcolor{loesgruen}{tiere[\dq Flipper\dq][\dq tierart\dq]}}\fi
 
-\item Wie erhält man die Zahl $2{,}5$ als Körperlänge von Flipper?
-\ifdefined\zeigloesungen
-\begin{tcolorbox}[colback=loesungbg,colframe=loesungframe,fonttitle=\bfseries\small,title=L{\"o}sung,left=4pt,right=4pt,top=2pt,bottom=2pt,before skip=4pt,after skip=4pt,]
-\begin{lstlisting}[style=python]
-tiere["Flipper"]["merkmale"]["koerperlaenge"]["wert"]
-\end{lstlisting}
-\end{tcolorbox}
-\fi
+\item Wie erhält man die Zahl $2{,}5$ als Körperlänge von Flipper?\\
+\ifdefined\zeigloesungen\texttt{\textcolor{loesgruen}{tiere[\dq Flipper\dq][\dq merkmale\dq][\dq koerperlaenge\dq][\dq wert\dq]}}\fi
 
-\item Wie setzt man bei Flipper das Merkmal \lstinline|"beine"| mit Wert 0 und Einheit \lstinline|"Anzahl"|?
-\ifdefined\zeigloesungen
-\begin{tcolorbox}[colback=loesungbg,colframe=loesungframe,fonttitle=\bfseries\small,title=L{\"o}sung,left=4pt,right=4pt,top=2pt,bottom=2pt,before skip=4pt,after skip=4pt,]
-\begin{lstlisting}[style=python]
-tiere["Flipper"]["merkmale"]["beine"] = {"wert": 0, "einheit": "Anzahl"}
-\end{lstlisting}
-\end{tcolorbox}
-\fi
+\item Wie setzt man bei Flipper das Merkmal \lstinline|"beine"| mit Wert 0 und Einheit \lstinline|"Anzahl"|?\\
+\ifdefined\zeigloesungen\texttt{\textcolor{loesgruen}{tiere[\dq Flipper\dq][\dq merkmale\dq][\dq beine\dq] = \{\dq wert\dq: 0, \dq einheit\dq: \dq Anzahl\dq\}}}\fi
 
-\item Wie entfernt man \lstinline|"Schokolade"| aus der Futterliste von Flipper?
-\ifdefined\zeigloesungen
-\begin{tcolorbox}[colback=loesungbg,colframe=loesungframe,fonttitle=\bfseries\small,title=L{\"o}sung,left=4pt,right=4pt,top=2pt,bottom=2pt,before skip=4pt,after skip=4pt,]
-\begin{lstlisting}[style=python]
-tiere["Flipper"]["futter"].remove("Schokolade")
-\end{lstlisting}
-\end{tcolorbox}
-\fi
+\item Wie entfernt man \lstinline|"Schokolade"| aus der Futterliste von Flipper?\\
+\ifdefined\zeigloesungen\texttt{\textcolor{loesgruen}{tiere[\dq Flipper\dq][\dq futter\dq].remove(\dq Schokolade\dq)}}\fi
 
-\item Wie setzt man die Klasse von Goldi auf \lstinline|"Fisch"|?
-\ifdefined\zeigloesungen
-\begin{tcolorbox}[colback=loesungbg,colframe=loesungframe,fonttitle=\bfseries\small,title=L{\"o}sung,left=4pt,right=4pt,top=2pt,bottom=2pt,before skip=4pt,after skip=4pt,]
-\begin{lstlisting}[style=python]
-tiere["Goldi"]["klasse"] = "Fisch"
-\end{lstlisting}
-\end{tcolorbox}
-\fi
+\item Wie setzt man die Klasse von Goldi auf \lstinline|"Fisch"|?\\
+\ifdefined\zeigloesungen\texttt{\textcolor{loesgruen}{tiere[\dq Goldi\dq][\dq klasse\dq] = \dq Fisch\dq}}\fi
 \end{enumerate}
 
 \section*{Aufgabe 4: Perzeptron-Lernalgorithmus nachvollziehen}
@@ -201,11 +167,11 @@ Start & -- & -- & -- & -- & $(0; 0; 0)$ \\
 \hline
 Forelle & \ifdefined\zeigloesungen \textcolor{loesgruen}{$-1$} \else $-1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = 1 + 0\cdot0 + 2{,}5\cdot0{,}4 = 2$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{ja} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(0;0;2{,}1)$} \fi \\[8pt]
 \hline
-Guppy & \ifdefined\zeigloesungen \textcolor{loesgruen}{$-1$} \else $-1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = 0 + 0\cdot0 + 2{,}1\cdot0{,}05 = 0{,}105$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{ja} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(-1;0;2{,}05)$} \fi \\[8pt]
+Guppy & \ifdefined\zeigloesungen \textcolor{loesgruen}{$-1$} \else $-1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = 0 + 0\cdot0 + 2{,}1\cdot0{,}05 \approx 0{,}11$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{ja} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(-1;0;2{,}05)$} \fi \\[8pt]
 \hline
-Hausmaus & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \else $+1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = {-1} + 0\cdot4 + 2{,}05\cdot0{,}08 = {-0{,}836}$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$-1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{ja} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(0;4;2{,}13)$} \fi \\[8pt]
+Hausmaus & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \else $+1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = {-1} + 0\cdot4 + 2{,}05\cdot0{,}08 \approx {-0{,}84}$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$-1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{ja} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(0;4;2{,}13)$} \fi \\[8pt]
 \hline
-Känguru & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \else $+1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = 0 + 4\cdot2 + 2{,}13\cdot1{,}6 = 11{,}408$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{nein} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(0;4;2{,}13)$} \fi \\[8pt]
+Känguru & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \else $+1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = 0 + 4\cdot2 + 2{,}13\cdot1{,}6 \approx 11{,}41$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{nein} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(0;4;2{,}13)$} \fi \\[8pt]
 \hline
 \end{tabular}
 \end{tabular}
@@ -217,15 +183,15 @@ Känguru & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \else $+1$ \fi &
 \hline
 Tier & $y$ & Berechnung z & $\hat y$ & \small{Fehler?} & \small{neue Gewichte} \\
 \hline
-Delphin & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \else $+1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = 0 + 4\cdot0 + 2{,}13\cdot2{,}5 = 5{,}325$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{nein} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(0;4;2{,}13)$} \fi \\[8pt]
+Delphin & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \else $+1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = 0 + 4\cdot0 + 2{,}13\cdot2{,}5 \approx 5{,}33$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{nein} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(0;4;2{,}13)$} \fi \\[8pt]
 \hline
-Forelle & \ifdefined\zeigloesungen \textcolor{loesgruen}{$-1$} \else $-1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = 0 + 4\cdot0 + 2{,}13\cdot0{,}4 = 0{,}852$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{ja} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(-1;4;1{,}73)$} \fi \\[8pt]
+Forelle & \ifdefined\zeigloesungen \textcolor{loesgruen}{$-1$} \else $-1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = 0 + 4\cdot0 + 2{,}13\cdot0{,}4 \approx 0{,}85$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{ja} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(-1;4;1{,}73)$} \fi \\[8pt]
 \hline
-Guppy & \ifdefined\zeigloesungen \textcolor{loesgruen}{$-1$} \else $-1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = {-1} + 4\cdot0 + 1{,}73\cdot0{,}05 = {-0{,}9135}$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$-1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{nein} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(-1;4;1{,}73)$} \fi \\[8pt]
+Guppy & \ifdefined\zeigloesungen \textcolor{loesgruen}{$-1$} \else $-1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = {-1} + 4\cdot0 + 1{,}73\cdot0{,}05 \approx {-0{,}91}$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$-1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{nein} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(-1;4;1{,}73)$} \fi \\[8pt]
 \hline
-Hausmaus & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \else $+1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = {-1} + 4\cdot4 + 1{,}73\cdot0{,}08 = 15{,}138$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{nein} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(-1;4;1{,}73)$} \fi \\[8pt]
+Hausmaus & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \else $+1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = {-1} + 4\cdot4 + 1{,}73\cdot0{,}08 \approx 15{,}14$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{nein} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(-1;4;1{,}73)$} \fi \\[8pt]
 \hline
-Känguru & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \else $+1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = {-1} + 4\cdot2 + 1{,}73\cdot1{,}6 = 9{,}768$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{nein} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(-1;4;1{,}73)$} \fi \\[8pt]
+Känguru & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \else $+1$ \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$z = {-1} + 4\cdot2 + 1{,}73\cdot1{,}6 \approx 9{,}77$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$+1$} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{nein} \fi & \ifdefined\zeigloesungen \textcolor{loesgruen}{$(-1;4;1{,}73)$} \fi \\[8pt]
 \hline
 \end{tabular}
 \end{tabular}
@@ -292,20 +258,7 @@ Kobra & Reptil & 0 & $2$ &
 \noindent \textbf{e)} Diskutieren Sie die Praxistauglichkeit des Klassifikators.
 
 \loesung{
-  Der Klassifikator ist wenig praxistauglich:
-  \begin{itemize}
-    \item Nur zwei Merkmale (Beine, Körperlänge) reichen nicht aus --
-      der Weiße Hai und die Kobra werden falsch klassifiziert, weil
-      eine große Körperlänge fälschlich für „Säugetier" spricht
-      (bedingt durch den Delphin als einziges großes Trainingsdatum).
-    \item Das Trainingsdatenset ist sehr klein (nur 5 Tiere) und nicht
-      repräsentativ.
-    \item Das Modell unterscheidet nur zwei Klassen (Säugetier / Fisch)
-      und kann Reptilien, Vögel usw.\ nicht verarbeiten.
-    \item Ein linearer Klassifikator (Trenngerade) ist ungeeignet, wenn
-      die Klassen nicht linear trennbar sind.
-  \end{itemize}
-}
+  Der Klassifikator ist wenig praxistauglich. Der weiße Hai wird falsch klassifiziert, weil das System gelernt hat, dass eine große Körperlänge für ein Säugetier und gegen einen Fisch spricht. Die Kobra wird falsch klassifiziert, weil der Klassifikator nicht für Reptilien ausgelegt ist und nur Säugetiere und Fische kennt. Sowohl der Hai als auch die Kobra sind sehr gefährlich, es kann zu tödlichen Unfällen kommen. Um Klassen von Tieren zu unterscheiden, reichen die Merkmale \emph{Körpergröße} und \emph{Anzahl Beine} nicht aus. Es sollten weitere Merkmale herangezogen werden.}
 
 \section*{Aufgabe 5: Pseudocode}
 
@@ -364,14 +317,7 @@ def finde_gerade(p1, p2):
 \noindent \textbf{b)} Eine der definierenden Eigenschaften für einen Algorithmus ist, dass er stets terminiert. Überprüfen Sie, ob es sich bei dem Pseudocode um einen Algorithmus handelt.
 
 \loesung{
-  Nein, es handelt sich \textbf{nicht} um einen Algorithmus im strengen
-  Sinne, weil die \textbf{Terminierung nicht garantiert} ist. Der
-  Pseudocode sucht zufällig Werte $a, b, c \in \{-5,\ldots,5\}$. Es
-  ist nicht sicher, dass für beliebige Eingabepunkte eine solche Lösung
-  in diesem eingeschränkten Wertebereich existiert. Selbst wenn eine
-  Lösung existiert, kann die zufällige Suche theoretisch beliebig lange
-  laufen -- eine obere Schranke für die Laufzeit lässt sich nicht
-  angeben.
+  Der Pseudocode enthält eine Endlosschleife. Das Programm beendet die Schleife, wenn es eine Lösung gefunden hat. Es werden Zahlen zufällig ausprobiert. Im ungünstigsten Fall, wenn immer die falschen Zahlen zufällig ausgewählt werden, bleibt das Programm in der Endlosschleife und wird nicht terminieren. Daher ist es kein Algorithmus.
 }
 
 \section*{Aufgabe 6: Chatbot-Skript analysieren}
