@@ -1,4 +1,4 @@
-x`\hrule
+\hrule
 \begin{center}
 {\large\bf Lernaufgaben zur Klausur 2}\\[-0mm]
 Studienkolleg der TU Berlin\hfill Till Zoppke\\
@@ -12,15 +12,9 @@ Informatik Oberkurs \hfill \today
 maschinellem Lernen.
 
 \loesung{
-  Bei der \textbf{klassischen KI} wird das Wissen explizit von Menschen
-  in Form von Regeln, Logik oder Entscheidungsbäumen programmiert
-  (regelbasiert). Das System verhält sich genau so, wie die Entwickler
-  es vorgesehen haben.
+  Bei der \textbf{klassischen KI} liegt die Intelligenz beim Menschen. Er oder sie entwickelt eine Strategie für die Lösung des Problems und setzt diese als Computerprogramm um. Das System verhält sich nach den Regeln, die die Entwickler:innen programmiert haben.
 
-  Beim \textbf{maschinellen Lernen} werden keine Regeln explizit
-  programmiert. Stattdessen lernt das System selbstständig Muster und
-  Regeln aus Trainingsdaten. Das Verhalten entsteht durch den
-  Lernprozess, nicht durch direkte Programmierung.
+  Beim \textbf{maschinellen Lernen} liegt die Intelligenz beim Computersystem. Die Entwickler:innen definieren das Problem und programmieren das Computersystem so, dass es die Lösungsstrategie anhand von Trainingsdaten selbst lernt.
 }
 
 \section*{Aufgabe 2: Umgebungsvariablen}
@@ -40,11 +34,7 @@ API-Key außerhalb des Programmcodes zu speichern.
 \item Welchen Nutzen hat es, einen API-Key in einer Umgebungsvariablen
 abzulegen, statt ihn direkt im Programmcode zu schreiben?
 \loesung{
-  Der API-Key steht nicht im Quellcode, der z.\,B. auf GitHub
-  veröffentlicht werden könnte -- dort wäre er für alle sichtbar und
-  könnte missbraucht werden. Außerdem kann der Key geändert werden,
-  ohne den Code zu bearbeiten, und verschiedene Nutzer können eigene
-  Keys verwenden.
+  Der API-Key steht nicht im Quellcode. Das Programm kann also geteilt werden, ohne dass der Schlüssel kompromittiert wird. Außerdem kann der Schlüssel geändert werden, ohne den Code zu bearbeiten, und verschiedene Nutzer können eigene Schlüssel verwenden.
 }
 \end{enumerate}
 
